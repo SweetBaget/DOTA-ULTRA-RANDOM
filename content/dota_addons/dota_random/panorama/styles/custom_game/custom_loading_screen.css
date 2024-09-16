@@ -1,0 +1,68 @@
+@define TotalLength:  150s;
+ @define TimingFunc: linear;
+ @define IterationCount: 1;
+ @define AnimationDelay: 10s;
+
+
+
+ #TitlePanel{
+
+   horizontal-align: center;
+   vertical-align: center;
+   margin-bottom: 0px;
+   margin-left: -200px;
+   flow-children: right;
+   pre-transform-scale2d: 1.0;
+   animation-name: gamemode_anim;
+   animation-delay: AnimationDelay;
+   animation-duration: TotalLength;
+   animation-timing-function: TimingFunc;
+   animation-iteration-count: IterationCount;
+ }
+
+ #CustomBg{
+  overflow: clip;
+  vertical-align: center;
+  pre-transform-scale2d: 1.0;
+  animation-name: bg_anim;
+  animation-delay: AnimationDelay;
+  animation-duration: TotalLength;
+  animation-timing-function: TimingFunc;
+  animation-iteration-count: IterationCount;
+ }
+
+ @keyframes 'gamemode_anim'{
+
+   0%{
+
+     transform: translateX( 0px ) translateY( 0px );
+   }
+   1%{
+
+     transform: translateX( 0px ) translateY( 0px );
+     pre-transform-scale2d: 0.7;
+   }
+   2%{
+
+     transform: translateX( 0px ) translateY( 0px );
+     pre-transform-scale2d: 1;
+   }
+   100%{
+
+     transform: translateX( 0px ) translateY( 0px );
+     pre-transform-scale2d: 1.5;
+   }
+ }
+ @keyframes 'bg_anim'{
+
+   0%{
+
+     transform: translateX( 0px ) translateY( 0px );
+   }
+
+   100%{
+
+     transform: translateX( 0px ) translateY( 0px );
+     pre-transform-scale2d: 1.5;
+   }
+}

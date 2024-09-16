@@ -1,0 +1,131 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/game_mode_ui.css" />
+		<include src="s2r://panorama/styles/dotastyles.css" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/game_mode.js" />
+		<include src="s2r://panorama/scripts/custom_game/simple_panel_animation.js" />
+	</scripts>
+	<Panel class="GameModeSelectPanel">
+		<Panel id="Group1">
+			<Label id="GameModeText" text="#GAME_MODE" />
+			<DropDown id="PlayMode" oninputsubmit="SetGameMode()">
+				<Label text="#All_Pick" id="ap"/>
+				<Label text="#All_Random" id="ar"/>
+			</DropDown>
+			<ToggleButton text="#same_hero" id="same_hero" onmouseover="DOTAShowTextTooltip(&apos;#same_hero_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#Buff_Stats" id="buffStats" onmouseover="DOTAShowTextTooltip(&apos;#Buff_Stats_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#Easy_Mode" id="easyMode" onmouseover="DOTAShowTextTooltip(&apos;#Easy_Mode_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#Buff_Creeps" id="buffCreeps" onmouseover="DOTAShowTextTooltip(&apos;#Buff_Creeps_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#disableAttackSpeedCap" id="disableAttackSpeedCap" onmouseover="DOTAShowTextTooltip(&apos;#disableAttackSpeedCap_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#ignore_movespeed_limit" id="ignore_movespeed_limit" onmouseover="DOTAShowTextTooltip(&apos;#ignore_movespeed_limit_tip&apos;)" onmouseout="DOTAHideTextTooltip()"  onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#Buff_Towers" id="buffTowers" onmouseover="DOTAShowTextTooltip(&apos;#Buff_Towers_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#DisableFOG" id="DisableFOG" onmouseover="DOTAShowTextTooltip(&apos;#DisableFOG_tio&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#Very_Fast_Respawn" id="fastRespawn" onmouseover="DOTAShowTextTooltip(&apos;#Very_Fast_Respawn_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#Free_Scepter" id="freeScepter" onmouseover="DOTAShowTextTooltip(&apos;#Free_Scepter_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#max_lvl" id="max_lvl" onmouseover="DOTAShowTextTooltip(&apos;#max_lvl_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#creepsSkills" id="creepsSkills" onmouseover="DOTAShowTextTooltip(&apos;#creepsSkills_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#Multicast" id="multicast" onmouseover="DOTAShowTextTooltip(&apos;#Multicast_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton class="collapsible" text="#Random_Skills" id="randomSkills" onactivate="OnRandomSkillsClick();SetGameMode();" ondeactivate="SetGameMode();" onmouseover="DOTAShowTextTooltip(&apos;#Random_Skills_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+			<Panel id="GroupRdnSk">
+				<ToggleButton text="#INNATE_ALLOWED" id="INNATE_ALLOWED" onmouseover="DOTAShowTextTooltip(&apos;#INNATE_ALLOWED_tip&apos;)" onmouseout="DOTAHideTextTooltip()"  onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+				<ToggleButton text="#Change_Skills_on_Death" id="changeSkillsOnDeath" onmouseover="DOTAShowTextTooltip(&apos;#Change_Skills_on_Death_tip&apos;)" onmouseout="DOTAHideTextTooltip()"  onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+				<Label text="#TOTAL_RANDOM_SKILLS" id="LabelRandomSkills" onmouseover="DOTAShowTextTooltip(&apos;#TOTAL_RANDOM_SKILLS_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+				<SlottedSlider id="TotalSkills" class="HorizontalSlider2" direction="horizontal" notches="10" onvaluechanged="SetGameMode();"/>
+				<Panel id="TotalSkillsLabels">
+					<Label id="SkillsLabels1" text="1"/>
+					<Label id="SkillsLabels2" text=""/>
+					<Label id="SkillsLabels3" text=""/>
+					<Label id="SkillsLabels4" text=""/>
+					<Label id="SkillsLabels5_uniq" text="5"/>
+					<Label id="SkillsLabels6" text=""/>
+					<Label id="SkillsLabels7" text=""/>
+					<Label id="SkillsLabels8" text=""/>
+					<Label id="SkillsLabels9" text=""/>
+					<Label id="SkillsLabels10" text="10"/>
+				</Panel>
+				<Label text="#RANDOM_ULTIMATES" id="LabelRandomUltis" onmouseover="DOTAShowTextTooltip(&apos;#RANDOM_ULTIMATES_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+				<SlottedSlider id="TotalUltis" class="HorizontalSlider2" direction="horizontal" notches="11" onvaluechanged="SetGameMode();"/>
+				<Panel id="TotalUltsLabels">
+					<Label id="UltsLabels0" text="0"/>
+					<Label id="UltsLabels1" text=""/>
+					<Label id="SkillsLabels2" text=""/>
+					<Label id="SkillsLabels3" text=""/>
+					<Label id="SkillsLabels4" text=""/>
+					<Label id="UltsLabels5" text="5"/>
+					<Label id="SkillsLabels6" text=""/>
+					<Label id="SkillsLabels7" text=""/>
+					<Label id="SkillsLabels8" text=""/>
+					<Label id="SkillsLabels9" text=""/>
+					<Label id="SkillsLabels10" text="10"/>
+				</Panel>
+			</Panel>
+			<ToggleButton text="#SlowBool" id="slowbool" onmouseover="DOTAShowTextTooltip(&apos;#SlowBool_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#ChanceBool" id="chancebool" onmouseover="DOTAShowTextTooltip(&apos;#ChanceBool_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#xIllusion" id="xIllusion" onmouseover="DOTAShowTextTooltip(&apos;#xIllusion_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<ToggleButton text="#xArmor" id="xArmor" onmouseover="DOTAShowTextTooltip(&apos;#xArmor_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="SetGameMode();" ondeactivate="SetGameMode();"/>
+			<Label text="#MULTIPLIER_SKILLS" id="LabelMultiplier" onmouseover="DOTAShowTextTooltip(&apos;#MULTIPLIER_SKILLS_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+			<SlottedSlider id="Multiplier" class="HorizontalSlider2" direction="horizontal" notches="6" onvaluechanged="SetGameMode();"/>
+			<Panel id="MultiplierLabels">
+				<Label id="SkillsLabels1" text="1" />
+				<Label id="SkillsLabels2" text="2" />
+				<Label id="SkillsLabels3" text="5" />
+				<Label id="SkillsLabels4" text="10" />
+				<Label id="SkillsLabels5" text="100" />
+				<Label id="SkillsLabels6" text="1000" />
+			</Panel>
+			<Label text="#SKILLS_RADIUS" id="LabelRadius" onmouseover="DOTAShowTextTooltip(&apos;#SKILLS_RADIUS_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+			<SlottedSlider id="Radius" class="HorizontalSlider2" direction="horizontal" notches="6" onvaluechanged="SetGameMode();"/>
+			<Panel id="RadiusLabels">
+				<Label id="SkillsLabels1" text="1" />
+				<Label id="SkillsLabels2" text="2" />
+				<Label id="SkillsLabels3" text="5" />
+				<Label id="SkillsLabels4" text="10" />
+				<Label id="SkillsLabels5" text="100" />
+				<Label id="SkillsLabels6" text="1000" />
+			</Panel>
+			<Label text="#SKILLS_RANGE" id="LabelRange" onmouseover="DOTAShowTextTooltip(&apos;#SKILLS_RANGE_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+			<SlottedSlider id="Range" class="HorizontalSlider2" direction="horizontal" notches="6" onvaluechanged="SetGameMode();"/>
+			<Panel id="RangeLabels">
+				<Label id="SkillsLabels1" text="1" />
+				<Label id="SkillsLabels2" text="2" />
+				<Label id="SkillsLabels3" text="5" />
+				<Label id="SkillsLabels4" text="10" />
+				<Label id="SkillsLabels5" text="100" />
+				<Label id="SkillsLabels6" text="1000" />
+			</Panel>
+			<Label text="#SKILLS_DURATION" id="LabelDuration" onmouseover="DOTAShowTextTooltip(&apos;#SKILLS_DURATION_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+			<SlottedSlider id="Duration" class="HorizontalSlider2" direction="horizontal" notches="6" onvaluechanged="SetGameMode();"/>
+			<Panel id="DurationLabels">
+				<Label id="SkillsLabels1" text="1" />
+				<Label id="SkillsLabels2" text="2" />
+				<Label id="SkillsLabels3" text="5" />
+				<Label id="SkillsLabels4" text="10" />
+				<Label id="SkillsLabels5" text="100" />
+				<Label id="SkillsLabels6" text="1000" />
+			</Panel>
+			<Label text="#SKILLS_ABILITYCASTRANGE" id="LabelAbilityCastRange" onmouseover="DOTAShowTextTooltip(&apos;#SKILLS_ABILITYCASTRANGE_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+			<SlottedSlider id="AbilityCastRange" class="HorizontalSlider2" direction="horizontal" notches="6" onvaluechanged="SetGameMode();"/>
+			<Panel id="AbilityCastRangeLabels">
+				<Label id="SkillsLabels1" text="1" />
+				<Label id="SkillsLabels2" text="2" />
+				<Label id="SkillsLabels3" text="5" />
+				<Label id="SkillsLabels4" text="10" />
+				<Label id="SkillsLabels5" text="100" />
+				<Label id="SkillsLabels6" text="1000" />
+			</Panel>
+			<Label text="#SKILLS_COOLDOWN" id="LabelCooldown" onmouseover="DOTAShowTextTooltip(&apos;#SKILLS_COOLDOWN_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+			<SlottedSlider id="Cooldown" class="HorizontalSlider2" direction="horizontal" notches="6" onvaluechanged="SetGameMode();"/>
+			<Panel id="CooldownLabels">
+				<Label id="SkillsLabels1" text="1" />
+				<Label id="SkillsLabels2" text="2" />
+				<Label id="SkillsLabels3" text="3" />
+				<Label id="SkillsLabels4" text="4" />
+				<Label id="SkillsLabels5" text="5" />
+				<Label id="SkillsLabels6" text="6" />
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

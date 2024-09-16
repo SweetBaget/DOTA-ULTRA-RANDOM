@@ -1,0 +1,17 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/custom_game/custom_loading_screen.css" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/custom_game/simple_panel_animation.js" />
+		<include src="s2r://panorama/scripts/custom_game/game_mode.js" />
+	</scripts>
+	<script><![CDATA[
+    PlayerConnected();
+  ]]></script>
+	<Panel class="AddonLoadingRoot">
+		<Panel id="CustomBg">
+			<Image id="bg" class="ProBg" src="file://{images}/custom_game/loading_screen/custom_bg.png" scaling="stretch-to-fit-preserve-aspect"/>
+		</Panel>
+	</Panel>
+</root>

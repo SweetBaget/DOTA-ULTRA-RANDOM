@@ -1,0 +1,24 @@
+"DOTAUnits"
+{
+    "Version" "1"
+    "npc_multicast"
+    {
+        "BaseClass" "npc_dota_creep_lane"
+        "SoundSet" "Creep_Bad_Range"
+        "Level" "6"
+        "ModelScale" "1"
+        "Ability1" ""
+        "AttackCapabilities" "DOTA_UNIT_CAP_NO_ATTACK"
+        "MovementCapabilities" "DOTA_UNIT_CAP_MOVE_FLY"
+        "MovementSpeed" "500"
+        "StatusHealth" "800"
+        "StatusHealthRegen" "0.5"
+        "StatusMana" "10000"
+        "StatusManaRegen" "50"
+        "VisionDaytimeRange" "0"
+        "VisionNighttimeRange" "0"
+        "BoundsHullName" "DOTA_HULL_SIZE_SMALL"
+        "RingRadius" "300"
+        "HealthBarOffset" "10000"
+    }
+}
