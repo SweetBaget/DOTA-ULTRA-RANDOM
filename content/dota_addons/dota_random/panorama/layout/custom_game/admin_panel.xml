@@ -1,0 +1,22 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/admin_panel.css"/>
+	</styles>
+	<scripts>
+        <include src="file://{resources}/scripts/custom_game/admin_panel.js"/>
+	</scripts>
+    <!-- Первая панель типа root -->
+	<Panel class="rootPanel" hittest="false">
+        <Panel id="SkillHandler">
+        </Panel>
+        <Button id="CloseSkillHandler" onactivate="switchWindow('SkillHandler')">
+            <Image src="s2r://panorama/images/control_icons/double_arrow_right_png.vtex" />
+        </Button>
+        <Panel id="SkillParams" hittest="true">
+            <Label id="tableText"/>
+        </Panel>
+        <Button id="CloseSkillParams" onactivate="switchWindow('SkillParams')">
+            <Image src="s2r://panorama/images/control_icons/double_arrow_left_png.vtex" />
+        </Button>
+	</Panel>
+</root>

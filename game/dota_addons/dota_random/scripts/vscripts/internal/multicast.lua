@@ -197,7 +197,7 @@ function Multicast:DoMulticast(keys)
                     --     dummySpell:SetLevel(1)
                     -- end
                     multUnit:AddNewModifier(multUnit, nil, 'modifier_invulnerable', {})
-                    GameMode:ModifierInizialize(multUnit)
+                    GameMode:AddMultipleModifier(multUnit)
                     multUnit:FindModifierByName("modifier_spells_randomize_values"):ForceRefresh()
 
                     -- Give it a scepter, if we have one
@@ -226,7 +226,7 @@ function Multicast:DoMulticast(keys)
                             DOTA_UNIT_TARGET_FLAG_NONE,
                             FIND_ANY_ORDER,
                             false
-                        )
+                       )
                     end
 
                     GameRules:GetGameModeEntity():SetThink(function()
@@ -272,7 +272,7 @@ function Multicast:DoMulticast(keys)
                 DOTA_UNIT_TARGET_FLAG_NONE,
                 FIND_ANY_ORDER,
                 false
-            )
+           )
         end
 
         Timers:CreateTimer(delay, function()

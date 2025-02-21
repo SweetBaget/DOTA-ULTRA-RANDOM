@@ -1,0 +1,157 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<!-- <include src="s2r://panorama/styles/battle_pass/current_battle_pass.vcss_c" />  было в дефолте, я убрал так как хз зачем нужно -->
+		<include src="s2r://panorama/styles/play.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/team_select.css" />
+        <include src="file://{resources}/styles/custom_game/game_mode_panel.css" />
+	</styles>
+	<scripts>
+        <include src="file://{resources}/scripts/custom_game/main.js"/>
+		<include src="file://{resources}/scripts/custom_game/team_select.js" />
+	</scripts>
+    <!-- Первая панель типа root -->
+	<Panel class="rootPanel" hittest="false">
+        <Panel id="gameModeSelectPanel">
+            <Panel id="gameModeSettings">
+                <Label id="gameModeText" text="#GAME_MODE"/>
+                <Panel id="playModeSettings">
+                    <DropDown id="playMode" oninputsubmit="setGameMode()">
+                        <Label text="#allPick" id="allPick"/>
+                        <Label text="#allRandom" id="allRandom"/>
+                    </DropDown>
+                    <ToggleButton text="#sameHero" id="sameHero" onmouseover="DOTAShowTextTooltip(&apos;#sameHero_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                </Panel>
+                <Label id="generalSettingsText" text="#generalSettingsText"/>    
+                <Panel id="generalSettings">
+                    <ToggleButton text="#easyMode" id="easyMode" onmouseover="DOTAShowTextTooltip(&apos;#easyMode_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#disableFOG" id="disableFOG" onmouseover="DOTAShowTextTooltip(&apos;#disableFOG_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#buffTowers" id="buffTowers" onmouseover="DOTAShowTextTooltip(&apos;#buffTowers_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#buffCreeps" id="buffCreeps" onmouseover="DOTAShowTextTooltip(&apos;#buffCreeps_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#precacheParticles" id="precacheParticles" onmouseover="DOTAShowTextTooltip(&apos;#precacheParticles_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#customHeroMode" id="customHeroMode" onactivate="onCustomHeroModeClick();setGameMode();" ondeactivate="setGameMode();" onmouseover="DOTAShowTextTooltip(&apos;#customHeroMode_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <!-- developerMode изначально прописана с параметром скрытия -->
+                    <ToggleButton text="#developerMode" id="developerMode" onactivate="setGameMode();" ondeactivate="setGameMode();" onmouseover="DOTAShowTextTooltip(&apos;#developerMode_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                </Panel>
+                <Label id="heroSettingsText" text="#heroSettingsText"/>
+                <Panel id="heroSettings">
+                    <ToggleButton text="#maxLvl" id="maxLvl" onmouseover="DOTAShowTextTooltip(&apos;#maxLvl_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#fastRespawn" id="fastRespawn" onmouseover="DOTAShowTextTooltip(&apos;#fastRespawn_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#disableAttackSpeedCap" id="disableAttackSpeedCap" onmouseover="DOTAShowTextTooltip(&apos;#disableAttackSpeedCap_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#disableAttributeBonuses" id="disableAttributeBonuses" onmouseover="DOTAShowTextTooltip(&apos;#disableAttributeBonuses_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#buffStats" id="buffStats" onmouseover="DOTAShowTextTooltip(&apos;#buffStats_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#ignoreMovespeedLimit" id="ignoreMovespeedLimit" onmouseover="DOTAShowTextTooltip(&apos;#ignoreMovespeedLimit_tip&apos;)" onmouseout="DOTAHideTextTooltip()"  onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#freeScepter" id="freeScepter" onmouseover="DOTAShowTextTooltip(&apos;#freeScepter_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                </Panel>
+                <Label id="skillsSettingsText" text="#skillsSettingsText"/>
+                <Panel id="skillsSettings">
+                    <ToggleButton text="#Multicast" id="Multicast" onmouseover="DOTAShowTextTooltip(&apos;#Multicast_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#randomSkills" id="randomSkills" onactivate="onRandomSkillsClick();setGameMode();" ondeactivate="setGameMode();" onmouseover="DOTAShowTextTooltip(&apos;#Random_Skills_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="randomSkillsGroup">
+                        <ToggleButton text="#creepsSkills" id="creepsSkills" onmouseover="DOTAShowTextTooltip(&apos;#creepsSkills_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                        <ToggleButton text="#innateAllowed" id="innateAllowed" onmouseover="DOTAShowTextTooltip(&apos;#innateAllowed_tip&apos;)" onmouseout="DOTAHideTextTooltip()"  onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                        <ToggleButton text="#changeSkillsOnDeath" id="changeSkillsOnDeath" onmouseover="DOTAShowTextTooltip(&apos;#changeSkillsOnDeath_tip&apos;)" onmouseout="DOTAHideTextTooltip()"  onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                        <Label text="#randomSkillsText" id="randomSkillsText" onmouseover="DOTAShowTextTooltip(&apos;#randomSkillsText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                        <Panel id="randomSkillsRoot">
+                            <Slider id="totalSkills" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('totalSkills');"/>
+                            <TextEntry id="totalSkillsEntry" maxchars="2" placeholder="..." onmouseout="onInputFieldSubmit('totalSkills', 'totalSkillsEntry');" ontextentrysubmit="onInputFieldSubmit('totalSkills', 'totalSkillsEntry');"/>
+                        </Panel>
+                        <Label text="#randomUltimatesText" id="randomUltimatesText" onmouseover="DOTAShowTextTooltip(&apos;#randomUltimatesText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                        <Panel id="randomUltimatesRoot">
+                            <Slider id="totalUltis" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('totalUltis');"/>
+                            <TextEntry id="totalUltisEntry" maxchars="2" placeholder="..." onmouseout="onInputFieldSubmit('totalUltis', 'totalUltisEntry');" ontextentrysubmit="onInputFieldSubmit('totalUltis', 'totalUltisEntry');"/>
+                        </Panel>
+                    </Panel>
+                    <ToggleButton text="#xSlow" id="xSlow" onmouseover="DOTAShowTextTooltip(&apos;#xSlow_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#xChance" id="xChance" onmouseover="DOTAShowTextTooltip(&apos;#xChance_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#xIllusion" id="xIllusion" onmouseover="DOTAShowTextTooltip(&apos;#xIllusion_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <ToggleButton text="#xArmor" id="xArmor" onmouseover="DOTAShowTextTooltip(&apos;#xArmor_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
+                    <Label text="#multiplierText" id="multiplierText" onmouseover="DOTAShowTextTooltip(&apos;#multiplierText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="multiplierRoot">
+                        <Slider id="Multiplier" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('Multiplier');"/>
+                        <TextEntry id="multiplierEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('Multiplier', 'multiplierEntry');" ontextentrysubmit="onInputFieldSubmit('Multiplier', 'multiplierEntry');"/>
+                    </Panel>
+                    <Label text="#radiusText" id="radiusText" onmouseover="DOTAShowTextTooltip(&apos;#radiusText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="radiusRoot">
+                        <Slider id="Radius" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('Radius');"/>
+                        <TextEntry id="radiusEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('Radius', 'radiusEntry');" ontextentrysubmit="onInputFieldSubmit('Radius', 'radiusEntry');"/>
+                    </Panel>
+                    <Label text="#rangeText" id="rangeText" onmouseover="DOTAShowTextTooltip(&apos;#rangeText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="rangeRoot">
+                        <Slider id="Range" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('Range');"/>
+                        <TextEntry id="rangeEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('Range', 'rangeEntry');" ontextentrysubmit="onInputFieldSubmit('Range', 'rangeEntry');"/>
+                    </Panel>
+                    <Label text="#durationText" id="durationText" onmouseover="DOTAShowTextTooltip(&apos;#durationText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="durationRoot">
+                        <Slider id="Duration" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('Duration');"/>
+                        <TextEntry id="durationEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('Duration', 'durationEntry');" ontextentrysubmit="onInputFieldSubmit('Duration', 'durationEntry');"/>
+                    </Panel>
+                    <Label text="#abilityCastRangeText" id="abilityCastRangeText" onmouseover="DOTAShowTextTooltip(&apos;#abilityCastRangeText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="abilityCastRangeRoot">
+                        <Slider id="abilityCastRange" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('abilityCastRange');"/>
+                        <TextEntry id="abilityCastRangeEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('abilityCastRange', 'abilityCastRangeEntry');" ontextentrysubmit="onInputFieldSubmit('abilityCastRange', 'abilityCastRangeEntry');"/>
+                    </Panel>
+                    <Label text="#cooldownText" id="cooldownText" onmouseover="DOTAShowTextTooltip(&apos;#cooldownText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="cooldownRoot">
+                        <Slider id="Cooldown" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('Cooldown');"/>
+                        <TextEntry id="cooldownEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('Cooldown', 'cooldownEntry');" ontextentrysubmit="onInputFieldSubmit('Cooldown', 'cooldownEntry');"/>
+                    </Panel>
+                </Panel>
+            </Panel>    
+		</Panel>
+        <Panel id="TeamSelectContainer" hittest="false" selectionpos="auto">
+			<Panel hittest="false" id="TeamsSelectEmptySpace" />
+			<Panel id="TeamsList">
+				<Panel id="TeamsListGroup">
+					<Panel id="TeamListHeader">
+						<Label id="TeamListHeaderLabel" text="#custom_game_team_select" />
+						<Image id="TeamListLockedIcon" src="s2r://panorama/images/control_icons/lock_small_png.vtex" />
+					</Panel>
+					<Panel id="TeamsListRoot" />
+					<Button id="ShuffleTeamAssignmentButton" onactivate="OnShufflePlayersPressed()">
+						<Label text="#custom_game_team_select_shuffle" />
+						<Image src="s2r://panorama/images/control_icons/shuffle_psd.vtex" />
+					</Button>
+				</Panel>
+			</Panel>
+			<Panel id="GameAndPlayersRoot">
+				<Panel id="GameInfoPanel">
+					<Panel id="CustomGameModeName">
+						<Label id="GameModeNameLabel" text="#addon_game_name"/>
+					</Panel>
+					<Panel id="MapInfo">
+						<Label id="MapInfoLabel" text="#LoadingScreenMapInfo" />
+					</Panel>
+					<Panel id="StartGameCountdownTimer">
+						<Image id="TimerBg" src="s2r://panorama/images/status_icons/timer_background_psd.vtex" />
+						<Image id="TimerRing" src="s2r://panorama/images/status_icons/timer_ring_psd.vtex" />
+						<Label id="TeamSelectTimer" text="#custom_game_team_select_timer" />
+						<Panel id="TimerLabelBox">
+							<Label id="TimerLabelAutoStart" text="#custom_game_team_select_auto_start" />
+							<Label id="TimerLabelGameStart" text="#custom_game_team_select_starting" />
+						</Panel>
+					</Panel>
+				</Panel>
+				<Panel id="UnassignedPlayerPanel">
+					<Button id="UnassignedPlayersButton" onactivate="OnLeaveTeamPressed()">
+						<Panel id="UnassignedPlayersHeader">
+							<Label text="#custom_game_team_select_unassigned_players" />
+						</Panel>
+						<Panel id="UnassignedPlayersDivider" />
+						<Panel id="UnassignedPlayersContainer" />
+					</Button>
+					<Button id="AutoAssignButton" onactivate="OnAutoAssignPressed()">
+						<Image src="s2r://panorama/images/control_icons/double_arrow_left_png.vtex" />
+						<Label text="#custom_game_team_select_auto_assign" />
+					</Button>
+				</Panel>
+				<Button id="LockAndStartButton" class="PlayButton" onactivate="OnLockAndStartPressed();setGameMode()">
+					<Label text="#custom_game_team_select_lock_start" />
+				</Button>
+				<Button id="CancelAndUnlockButton" class="PlayButton" onactivate="OnCancelAndUnlockPressed()">
+					<Label text="#custom_game_team_select_cancel_unlock" />
+				</Button>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

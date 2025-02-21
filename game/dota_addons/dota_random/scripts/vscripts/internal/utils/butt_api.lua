@@ -272,15 +272,15 @@ function CDOTA_BaseNPC:GetAllTalents() -- returns Abilitynumber and Talent (hand
 	return out
 end
 
-function CDOTA_BaseNPC:AddNewModifierButt(caster, optionalSourceAbility, modifierName, modifierData)
+function CDOTA_BaseNPC:AddNewModifierButt(hero, optionalSourceAbility, modifierName, modifierData)
 	local file = "modifiers/"..modifierName
 	if pcall(require,file) then
 		LinkLuaModifier(modifierName, file, LUA_MODIFIER_MOTION_NONE)
 	end
-	self:AddNewModifier(caster, optionalSourceAbility, modifierName, modifierData)
+	self:AddNewModifier(hero, optionalSourceAbility, modifierName, modifierData)
 end
 
-function CDOTA_BaseNPC:RemoveItemByName( itemName )
+function CDOTA_BaseNPC:RemoveItemByName(itemName)
 	for i=1,10 do
 		local item = self:GetItemInSlot(i)
 		if (item) and (item:GetName()==itemName) then
@@ -310,12 +310,12 @@ function say(...)
 	Say(nil,str,true)
 end
 
-function CreateModifierThinkerButt( hCaster, hAbility, modifierName, paramTable, vOrigin, nTeamNumber, bPhantomBlocker )
+function CreateModifierThinkerButt(hCaster, hAbility, modifierName, paramTable, vOrigin, nTeamNumber, bPhantomBlocker)
 	local file = "modifiers/"..modifierName
 	if pcall(require,file) then
 		LinkLuaModifier(modifierName, file, LUA_MODIFIER_MOTION_NONE)
 	end
-	CreateModifierThinker( hCaster, hAbility, modifierName, paramTable, vOrigin, nTeamNumber, bPhantomBlocker )
+	CreateModifierThinker(hCaster, hAbility, modifierName, paramTable, vOrigin, nTeamNumber, bPhantomBlocker)
 end
 
 function Butt:Roshan()
@@ -363,4 +363,12 @@ end
 
 function IsMonkeyKingClone(unit)
 	return unit:HasModifier("modifier_monkey_king_fur_army_soldier_hidden")
+end
+
+function GetListLenght(table)
+    local len = 0
+    for _,_ in pairs(table) do
+        len = len + 1
+    end
+    return len
 end

@@ -1,0 +1,13 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/admin_panel.css"/>
+	</styles>
+    <scripts>
+        <include src="file://{resources}/scripts/custom_game/skill_param.js"/>
+	</scripts>
+    <Panel class="skillParam">
+        <Label id="skillParamText"/>
+        <Label id="skillParamInit"/>
+        <TextEntry id="skillParamEntry" maxchars="10" placeholder="___" ontextentrysubmit="acceptSkillParam($.GetContextPanel())"/>
+    </Panel>
+</root>

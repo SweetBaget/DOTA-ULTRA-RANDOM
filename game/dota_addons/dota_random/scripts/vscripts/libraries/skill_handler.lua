@@ -10,24 +10,22 @@ local ultimates_SHARD = {}
 local ultimates_AGHANIM = {}
 local ultimates_SHARD_AGHANIM = {}
 
-local skillHandler = {}
-local skillsList = {}
-local build = {}
-local passives = {}
-local linkedForBuild = {}
-local prevBuild = {}
+skillsList = {}
+SkillHandler = {}
+playerBuilds = {}
+prevBuilds = {}
 local innateAbilities = {}
 -- local checkedAbilitiesDEV = {}
 
 local badSkills = LoadKeyValues("scripts/kv/bannedSkills.kv")
-local subSkills = LoadKeyValues("scripts/kv/subSkills.kv")
-local linkedSkills = LoadKeyValues("scripts/kv/linkedSkills.kv")
+subSkills = LoadKeyValues("scripts/kv/subSkills.kv")
+linkedSkills = LoadKeyValues("scripts/kv/linkedSkills.kv")
 
 -- По данным путям не должно лежать никаких файлов, инфа берется из игры
 local npcHeroesKV = LoadKeyValues("scripts/npc/npc_heroes.txt")
 local unitSkillsKV = LoadKeyValues("scripts/npc/npc_abilities.txt")
 
-function skillHandler:getAbiltiesInfo()
+function SkillHandler:getAbiltiesInfo()
     print("Собираю информацию о всех скиллах")
     local allAbilities = {}
 
@@ -82,7 +80,6 @@ function skillHandler:getAbiltiesInfo()
             end
         end
     end
-    print(#skillsList)
 
     --Собираю информацию по всем прочим скиллам
     if CREEPS_SKILLS_BOOL then
@@ -141,8 +138,8 @@ function skillHandler:getAbiltiesInfo()
             end
         end
     end
-    print(#skillsList)
 
+    print(GetListLenght(skillsList), "длина списка умений 111")
     for i, skillInfo in pairs(skillsList) do
         local abilityName = skillInfo["abilityName"]
         if skillInfo["IsHidden"] ~= "1" and skillInfo["IsAttributeBonus"] ~= "1" and
@@ -195,7 +192,7 @@ for k,v in pairs(npcHeroesKV) do
     end
 end
 
-function skillHandler:getRandomHero()
+function SkillHandler:getRandomHero()
     local rand = math.random(#simpleHeroList)
     local heroName = simpleHeroList[rand]
     return heroName
@@ -203,7 +200,7 @@ end
 
 local rerollAghanim
 local rerollShard
-function skillHandler:getRandomSkill(hero)
+function SkillHandler:getRandomSkill(hero)
     rerollAghanim = false
     rerollShard = false
     --Если у героя есть шард а аганима нет
@@ -218,7 +215,6 @@ function skillHandler:getRandomSkill(hero)
         rerollAghanim = true
         rerollShard = true
         local rand = math.random(#skills_SHARD_AGHANIM)
-        print(skills_SHARD_AGHANIM[rand])
         return skills_SHARD_AGHANIM[rand]
     --Если у героя нет шарда и есть аганим
     elseif (hero:HasModifier("modifier_item_ultimate_scepter") or hero:HasModifier("modifier_item_ultimate_scepter_consumed")) and 
@@ -233,7 +229,7 @@ function skillHandler:getRandomSkill(hero)
 end
 
 
-function skillHandler:getRandomUltimate(hero)
+function SkillHandler:getRandomUltimate(hero)
     --Если у героя есть шард а аганима нет
     if hero:HasModifier("modifier_item_aghanims_shard") and
     not (hero:HasModifier("modifier_item_ultimate_scepter") or hero:HasModifier("modifier_item_ultimate_scepter_consumed")) then
@@ -260,17 +256,15 @@ function skillHandler:getRandomUltimate(hero)
 end
 
 local function checkAbilityPlusPassive(hero, skill)
-    local abilityIsPassive = nil
+    local abilityIsPassive = false
     local isGoodSkill = true
     if not pcall(function() 
-        print(skill, "добавляется для теста")
         local checkAbility = hero:AddAbility(skill)
         local abilityBehavior = checkAbility:GetBehavior()
         if string.match(abilityBehavior, "DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS") then
             abilityIsPassive = true
         end
         hero:RemoveAbility(skill)
-        print(skill, "удалено после теста")
     end) then
         isGoodSkill = false
         return abilityIsPassive, isGoodSkill
@@ -278,47 +272,44 @@ local function checkAbilityPlusPassive(hero, skill)
     return abilityIsPassive, isGoodSkill
 end
 
-local function insertBuildSkill(build, skill, abilityIsPassive, isGoodSkill)
+function SkillHandler:insertBuildSkill(playerBuilds, skill, abilityIsPassive, isGoodSkill, playerID)
     if abilityIsPassive == true and isGoodSkill == true then
-        table.insert(passives, skill)
-    elseif isGoodSkill == true then
-        table.insert(build, skill)
+        playerBuilds[playerID]["passives"][skill] = skill
+    elseif abilityIsPassive == false and isGoodSkill == true then
+        playerBuilds[playerID]["skills"][skill] = skill
     end
-    return build
 end
 
-local function addSubSkill(hero, build, skill)
+function SkillHandler:addSubSkill(playerBuilds, hero, skill, playerID)
     local subSkillInfo = subSkills[skill]
     if type(subSkillInfo) == "table" then
         for _, subSkill in pairs(subSkillInfo) do
             local abilityIsPassive, isGoodSkill = checkAbilityPlusPassive(hero, subSkill)
-            build = insertBuildSkill(build, subSkill, abilityIsPassive, isGoodSkill)
+            playerBuilds = self:insertBuildSkill(playerBuilds, subSkill, abilityIsPassive, isGoodSkill, playerID)
         end
     elseif subSkillInfo ~= nil then
         local subSkill = subSkillInfo
         local abilityIsPassive, isGoodSkill = checkAbilityPlusPassive(hero, subSkill)
-        build = insertBuildSkill(build, subSkill, abilityIsPassive, isGoodSkill)
+        playerBuilds = self:insertBuildSkill(playerBuilds, subSkill, abilityIsPassive, isGoodSkill, playerID)
     end
-    return build
 end
 
-local function addLinkedSkill(hero, linkedForBuild, skill)
+local function addLinkedSkill(playerBuilds, skill, playerID)
     local linkedSkillInfo = linkedSkills[skill]
     if type(linkedSkillInfo) == "table" then
         for _, linkedSkill in pairs(linkedSkillInfo) do
-            table.insert(linkedForBuild, linkedSkill)
+            playerBuilds[playerID]["linkedSkills"][linkedSkill] = linkedSkill
         end
     elseif linkedSkillInfo ~= nil then
         local linkedSkill = linkedSkillInfo
-        table.insert(linkedForBuild, linkedSkill)
+        playerBuilds[playerID]["linkedSkills"][linkedSkill] = linkedSkill
     end
-    return linkedForBuild
 end
 
-function skillHandler:getRandomSkills(abilsCount, ultimatesCount, hero)
-    local newBuild = {}
-    passives = {}
-    linkedForBuild = {}
+function SkillHandler:getRandomSkills(playerBuilds, prevBuilds, abilsCount, ultimatesCount, hero, playerID)
+    playerBuilds[playerID]["skills"] = {}
+    playerBuilds[playerID]["passives"] = {}
+    playerBuilds[playerID]["linkedSkills"] = {}
     
     for i = 1, abilsCount do
         local skill
@@ -329,7 +320,6 @@ function skillHandler:getRandomSkills(abilsCount, ultimatesCount, hero)
             skill = self:getRandomSkill(hero)
             if not pcall(function() 
                 abilityIsPassive, isGoodSkill = checkAbilityPlusPassive(hero, skill)
-                print(skill, abilityIsPassive, isGoodSkill)
             end) then
                 isGoodSkill = false
                 if skill then
@@ -338,17 +328,27 @@ function skillHandler:getRandomSkills(abilsCount, ultimatesCount, hero)
                     print("Не определен скилл")
                 end
             end
-            -- Если скилла нет в прошлом билде, если скилла нет в этом билде, то заканчиваем перебор
-            if not TableContains(prevBuild, skill) and not TableContains(newBuild, skill) and not TableContains(linkedForBuild, skill) and
-            isGoodSkill == true and not TableContains(passives, skill) then
+            -- Если скилла нет в прошлом билде, если скилла нет в этом билде, и в новом билде то заканчиваем перебор
+            if prevBuilds[playerID] ~= nil then
+                if TableContains(prevBuilds[playerID]["skills"], skill) or
+                TableContains(prevBuilds[playerID]["linkedSkills"], skill) or
+                TableContains(prevBuilds[playerID]["passives"], skill) then
+                    goto nextAbility
+                end
+            end
+            
+            if not TableContains(playerBuilds[playerID]["skills"], skill) and
+            not TableContains(playerBuilds[playerID]["linkedSkills"], skill) and
+            not TableContains(playerBuilds[playerID]["passives"], skill)
+            and isGoodSkill == true then
                 break
             end
-        end
-        newBuild = insertBuildSkill(newBuild, skill, abilityIsPassive, isGoodSkill)
-        newBuild = addSubSkill(hero, newBuild, skill)
 
-        --Если добавляемый скилл не работает без другого и другого еще нет в билде, то добавляю другой скилл в билд
-        linkedForBuild = addLinkedSkill(hero, linkedForBuild, skill)
+            ::nextAbility::
+        end
+        self:insertBuildSkill(playerBuilds, skill, abilityIsPassive, isGoodSkill, playerID)
+        self:addSubSkill(hero, skill, playerID)
+        addLinkedSkill(playerBuilds, skill, playerID)
     end
     if ultimatesCount > 0 then
         for i = 1, ultimatesCount do
@@ -368,34 +368,45 @@ function skillHandler:getRandomSkills(abilsCount, ultimatesCount, hero)
                         print("Не определен ульт")
                     end
                 end
-                if not TableContains(prevBuild, ult) and not TableContains(newBuild, ult) and not TableContains(linkedForBuild, ult) and
-                isGoodUlt == true and not TableContains(passives, ult) then
+                -- Если скилла нет в прошлом билде, если скилла нет в этом билде, и в новом билде то заканчиваем перебор
+                if prevBuilds[playerID] ~= nil then
+                    if TableContains(prevBuilds[playerID]["skills"], ult) or
+                    TableContains(prevBuilds[playerID]["linkedSkills"], ult) or
+                    TableContains(prevBuilds[playerID]["passives"], ult) then
+                        goto nextUlt
+                    end
+                end
+
+                if not TableContains(playerBuilds[playerID]["skills"], ult) and
+                not TableContains(playerBuilds[playerID]["linkedSkills"], ult) and
+                not TableContains(playerBuilds[playerID]["passives"], ult)
+                and isGoodUlt == true then
                     break
                 end
-            end
-            newBuild = insertBuildSkill(newBuild, ult, abilityIsPassive, isGoodUlt)
-            newBuild = addSubSkill(hero, newBuild, ult)
 
-            --Если добавляемый скилл не работает без другого и другого еще нет в билде, то добавляю другой скилл в билд
-            linkedForBuild = addLinkedSkill(hero, linkedForBuild, ult)
+                ::nextUlt::
+            end
+            self:insertBuildSkill(playerBuilds, ult, abilityIsPassive, isGoodUlt, playerID)
+            self:addSubSkill(hero, ult, playerID)
+            addLinkedSkill(playerBuilds, ult, playerID)
         end
     end
 
     if INNATE_ALLOWED then
-        table.insert(newBuild, innateAbilities[math.random(#innateAbilities)])
+        local newInnateAbil = innateAbilities[math.random(#innateAbilities)]
+        playerBuilds[playerID]["skills"][newInnateAbil] = newInnateAbil
     end
 
     -- если есть скилл рубика в билде, то добавляю скиллы для его работоспособности
-    if TableContains(newBuild, "rubick_spell_steal") then
-        -- значения смещаются
-        table.insert(newBuild, 4, "rubick_empty1")
-        table.insert(newBuild, 5, "rubick_empty2")
-    end
-    return newBuild
+    -- if TableContains(playerBuilds[playerID]["skills"], "rubick_spell_steal") then
+    --     -- значения смещаются
+    --     table.insert(playerBuilds[playerID]["skills"], 4, "rubick_empty1")
+    --     table.insert(playerBuilds[playerID]["skills"], 5, "rubick_empty2")
+    -- end
 end
 
 local talentsCount = 0
-function skillHandler:removeAllSkills(hero)
+function SkillHandler:removeAllSkills(hero)
     talentsCount = 0
     -- считает количество прокачанных талантов
     local abilityCount = hero:GetAbilityCount()
@@ -429,12 +440,20 @@ function skillHandler:removeAllSkills(hero)
     end
 end
 
-function skillHandler:randomSkillsWork(hero, skillsCount, ultisCount)
+function SkillHandler:randomSkillsWork(hero, skillsCount, ultisCount, playerID)
     print('Skills for :' .. hero:GetUnitName())
-    prevBuild = build
-    build = self:getRandomSkills(skillsCount, ultisCount, hero)
+    -- playerBuilds = {}
+    if playerBuilds[playerID] == nil then
+        playerBuilds[playerID] = {
+            skills = {},
+            passives = {},
+            linkedSkills = {}
+        }
+    end
+
+    self:getRandomSkills(playerBuilds, prevBuilds, skillsCount, ultisCount, hero, playerID)
     print("getRandomSkills завершен")
-    self:setSkills(hero, build)
+    self:setSkills(playerBuilds, hero, playerID)
     print("setskills завершен")
     local level = hero:GetLevel()
     local givedAbilityPoints = level-talentsCount
@@ -466,50 +485,69 @@ function skillHandler:randomSkillsWork(hero, skillsCount, ultisCount)
     else
         hero:SetAbilityPoints(level-talentsCount)
     end
+
+    prevBuilds[playerID] = table.copy(playerBuilds[playerID])
 end
 
-function skillHandler:SetTempestDoubleSkills(hero)
-    self:removeAllSkills(hero)
-    for i, skill in pairs(build) do
-        print("TempestDouble", skill)
-        hero:AddAbility(skill)
+function SkillHandler:SetTempestDoubleSkills(tempestHero)
+    self:removeAllSkills(tempestHero)
+    local generalHero = tempestHero:GetPlayerOwner():GetAssignedHero()
+    local abilityCount = generalHero:GetAbilityCount()
+    for i=0, abilityCount+1 do
+        local ability = generalHero:GetAbilityByIndex(i)
+        if ability ~= nil then
+            local abilityName = ability:GetAbilityName()
+            if not string.match(abilityName, "special_bonus") and not string.match(abilityName, "ability") and 
+            not string.match(abilityName, "portal_warp") and abilityName ~= "arc_warden_tempest_double" then
+                local newAbility = tempestHero:AddAbility(abilityName)
+                newAbility:SetLevel(ability:GetLevel())
+            end
+        end
     end
 end
 
-function skillHandler:setSkills(hero, skills)
+function SkillHandler:setSkills(playerBuilds, hero, playerID)
     -- Сначала удалять скиллы или модификаторы??
     self:removeAllSkills(hero)
     -- Remove possible bugged modifiers at start
     hero:RemoveAllModifiers(0, true, true, true)
 
     -- Добавляет герою все полученные умения
-    for indexSkill, skill in pairs(skills) do
+    for indexSkill, skill in pairs(playerBuilds[playerID]["skills"]) do
         print(skill, "SetSkills")
         local ability = hero:AddAbility(skill)
         -- table.insert(checkedAbilitiesDEV, skill)
     end
-    for indexSkill, skill in pairs(passives) do
-        print(skill, "SetSkills")
+    for indexSkill, skill in pairs(playerBuilds[playerID]["passives"]) do
+        print(skill, "SetPassives")
         local ability = hero:AddAbility(skill)
         -- table.insert(checkedAbilitiesDEV, skill)
     end
-    for indexSkill, skill in pairs(linkedForBuild) do
-        print(skill, "SetSkills")
+    for indexSkill, skill in pairs(playerBuilds[playerID]["linkedSkills"]) do
+        print(skill, "SetLinked")
         local ability = hero:AddAbility(skill)
-        ability:SetLevel(math.random(1, ability:GetMaxLevel()))
+        ability:SetLevel(1)
         ability:SetHidden(true)
         -- table.insert(checkedAbilitiesDEV, skill)
     end
 
-    -- -- Для работы аганима и шарда с новыми скиллами
+    -- Для работы аганима и шарда с новыми скиллами
     if rerollAghanim then
         if hero:HasModifier("modifier_item_ultimate_scepter") then
             hero:RemoveModifierByName("modifier_item_ultimate_scepter")
-            hero:AddNewModifier(hero, nil, "modifier_item_ultimate_scepter", nil)
+            hero:AddNewModifier(hero, nil, "modifier_item_ultimate_scepter", {
+                bonus_all_stats = 0,
+                bonus_health = 0,
+                bonus_mana = 0
+            })
         end
         if hero:HasModifier("modifier_item_ultimate_scepter_consumed") then
             hero:RemoveModifierByName("modifier_item_ultimate_scepter_consumed")
-            hero:AddNewModifier(hero, nil, "modifier_item_ultimate_scepter_consumed", nil)
+            hero:AddNewModifier(hero, nil, "modifier_item_ultimate_scepter_consumed", {
+                bonus_all_stats = 0,
+                bonus_health = 0,
+                bonus_mana = 0
+            })
         end
     end
     if rerollShard then
@@ -518,11 +556,11 @@ function skillHandler:setSkills(hero, skills)
     end
     
     --усиление новых умений
-    GameMode:ModifierInizialize(hero)
-    hero:FindModifierByName("modifier_spells_randomize_values"):ForceRefresh()
+    -- GameMode:AddMultipleModifier(hero)
+    -- hero:FindModifierByName("modifier_spells_randomize_values"):ForceRefresh()
 end
 
-function skillHandler:TESTsetSkills(hero, skills)
+function SkillHandler:TESTsetSkills(hero, skills)
     local abilityCount = hero:GetAbilityCount()
 	for i=0, abilityCount do
         local ability = hero:GetAbilityByIndex(i)
@@ -568,4 +606,4 @@ function skillHandler:TESTsetSkills(hero, skills)
     -- end
 end
 
-SkillHandler = skillHandler
+-- SkillHandler = SkillHandler

@@ -1,5 +1,5 @@
 function PrintTable(t, indent, done)
-  --print ( string.format ('PrintTable type %s', type(keys)) )
+  --print (string.format ('PrintTable type %s', type(keys)))
   if type(t) ~= "table" then return end
 
   done = done or {}
@@ -100,10 +100,12 @@ function TableConcat3(t1,t2,t3)
 end
 
 function TableContains(tab, val)
-  for index, value in ipairs(tab) do
-      if value == val then
-          return true, index
-      end
-  end
-  return false
+    if tab ~= {} then
+        for index, value in ipairs(tab) do
+            if value == val then
+                return true, index
+            end
+        end
+    end
+    return false
 end

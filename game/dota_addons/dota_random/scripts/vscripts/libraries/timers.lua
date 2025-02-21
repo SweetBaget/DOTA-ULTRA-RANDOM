@@ -7,7 +7,7 @@ TIMERS_VERSION = "1.03"
       print ("Hello. I'm running immediately and then every second thereafter.")
       return 1.0
     end
-  )
+ )
 
   -- A timer which calls a function with a table context
   Timers:CreateTimer(GameMode.someFunction, GameMode)
@@ -17,7 +17,7 @@ TIMERS_VERSION = "1.03"
       print ("Hello. I'm running 5 seconds after you called me and then every second thereafter.")
       return 1.0
     end
-  )
+ )
 
   -- 10 second delayed, run once using gametime (respect pauses)
   Timers:CreateTimer({
@@ -65,14 +65,14 @@ TIMERS_VERSION = "1.03"
 TIMERS_THINK = 0.01
 
 if Timers == nil then
-  print ( '[Timers] creating Timers' )
+  print ('[Timers] creating Timers')
   Timers = {}
   Timers.__index = Timers
 end
 
-function Timers:new( o )
+function Timers:new(o)
   o = o or {}
-  setmetatable( o, Timers )
+  setmetatable(o, Timers)
   return o
 end
 
@@ -254,14 +254,14 @@ if not Timers.timers then Timers:start() end
 
 function Timers:CreateTimer2(...)
     -- Grab the gamemode entity
-    local gm = GameRules:GetGameModeEntity()
+    local gameModeEntity = GameRules:GetGameModeEntity()
 
     -- Ensure it exists
-    if not gm then
+    if not gameModeEntity then
         print('WARNING: Timer created too soon!')
         return
     end
 
     -- Run the timer
-    gm:SetThink(...)
+    gameModeEntity:SetThink(...)
 end

@@ -2,6 +2,10 @@
 {
   custom_net_tables =
   [
-    "containers_lua","butt_settings","spell_amps_server","spell_amps_client", "settings"
+    "containers_lua",
+    "butt_settings",
+    "spell_amps_server",
+    "spell_amps_client",
+    "settings"
   ]
 }

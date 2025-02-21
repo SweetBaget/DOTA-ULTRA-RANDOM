@@ -1,0 +1,66 @@
+.rootPanel{
+    width: 100%;
+    height: 100%;
+}
+
+#CloseSkillHandler{
+    margin-right: 26%;
+    horizontal-align: right;
+}
+
+#CloseSkillParams{
+    margin-left: 26%;
+    horizontal-align: left;
+}
+
+#SkillHandler{
+    horizontal-align: right;
+    height: 80%;
+    width: 30%;
+    margin-top: 3.8%;
+    
+    flow-children: right-wrap;
+    overflow: squish scroll;
+
+    /* черный фон */
+    background-color: #000000dd;
+}
+
+#SkillParams{
+    flow-children: down;
+    horizontal-align: left;
+    width: 30%;
+    height: 67.7%;
+    margin-top: 9.9%;
+    
+    /* черный фон */
+    background-color: #000000dd;
+    overflow: squish scroll;
+}
+#tableText{
+    margin-top: 10px;
+    margin-left: 10px;
+
+    font-size: 30px;
+    color: yellow;
+}
+
+.skillParam{
+    margin-left: 10px;
+
+    width: 100%;
+    flow-children: right-wrap;
+    font-size: 26px;
+    color: white;
+}
+
+#newSkillButton
+{
+	height: 50px;
+    width: 50px;
+	margin-right: 5px;
+}
+
+#skillParamEntry{
+    margin-left: 15px;
+}
