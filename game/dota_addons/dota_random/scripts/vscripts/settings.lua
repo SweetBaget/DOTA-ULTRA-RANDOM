@@ -183,20 +183,23 @@ DEFAULT_MODE_SETTINGS.Omg = 1 			-- RAMDOM SKILLS
 DEFAULT_MODE_SETTINGS.omgDM = 1 		-- CHANGE SKILLS ON DEATH
 DEFAULT_MODE_SETTINGS.creepsSkills = 1 --Включает умения юнитов
 DEFAULT_MODE_SETTINGS.innateAllowed = 1 	-- выдавать врожденные способности
-DEFAULT_MODE_SETTINGS.totalSkills = 6 	-- TOTAL SKILLS
-DEFAULT_MODE_SETTINGS.totalUltis = 2 -- TOTAL ULTS
+DEFAULT_MODE_SETTINGS.TotalSkills = 6 	-- TOTAL SKILLS
+DEFAULT_MODE_SETTINGS.TotalUltis = 2 -- TOTAL ULTS
 
-DEFAULT_MODE_SETTINGS.Multiplier = 10 --Множитель всей кастомки
-DEFAULT_MODE_SETTINGS.Radius = 2 --Радиус умений
-DEFAULT_MODE_SETTINGS.Duration = 1 --Радиус умений
-DEFAULT_MODE_SETTINGS.Cooldown = 1 --Множитель кулдаунов
-DEFAULT_MODE_SETTINGS.abilityCastRange = 2 --Радиус умений
-DEFAULT_MODE_SETTINGS.Range = 2 --Множитель дальности умений (стрела мираны)
-
-DEFAULT_MODE_SETTINGS.xChance = 1 --игнор множ. шансов
-DEFAULT_MODE_SETTINGS.xSlow = 1 --игнор множ. замедлений
-DEFAULT_MODE_SETTINGS.xIllusion = 1 --игнор множ. иллюзий
-DEFAULT_MODE_SETTINGS.xArmor = 1 --игнор множ. армора
+DEFAULT_MODE_SETTINGS.xMultiplier = 10 --Множитель всей кастомки
+DEFAULT_MODE_SETTINGS.xRadius = 2 --Радиус умений
+DEFAULT_MODE_SETTINGS.xDuration = 1 --Радиус умений
+DEFAULT_MODE_SETTINGS.xCooldown = 1 --Множитель кулдаунов
+DEFAULT_MODE_SETTINGS.xAbilityCastRange = 2 --Радиус умений
+DEFAULT_MODE_SETTINGS.xRange = 2 --Множитель дальности умений (стрела мираны)
+DEFAULT_MODE_SETTINGS.xPercentScale = 1 --множитель процентов
+DEFAULT_MODE_SETTINGS.xResistances = 1 --множитель резистов (броня, маг. броня)
+DEFAULT_MODE_SETTINGS.xModelScale = 1 --множитель размеров моделек (от скиллов)
+DEFAULT_MODE_SETTINGS.xSpeed = 1 --множитель скорости
+DEFAULT_MODE_SETTINGS.xSkillsSpeed = 1 --множитель скорости скиллов
+DEFAULT_MODE_SETTINGS.xUnitsCount = 1 --множитель количества юнитов
+DEFAULT_MODE_SETTINGS.xChance = 1 --множитель шансов 
+DEFAULT_MODE_SETTINGS.xSlow = 1 --множитель замедлений
 
 DEFAULT_MODE_SETTINGS.developerMode = 0
 DEFAULT_MODE_SETTINGS.customHeroMode = 0

@@ -6,7 +6,7 @@
         <include src="file://{resources}/scripts/custom_game/skill_param.js"/>
 	</scripts>
     <Panel class="skillParam">
-        <Label id="skillParamText"/>
+        <TextEntry id="skillParamText"/>
         <Label id="skillParamInit"/>
         <TextEntry id="skillParamEntry" maxchars="10" placeholder="___" ontextentrysubmit="acceptSkillParam($.GetContextPanel())"/>
     </Panel>

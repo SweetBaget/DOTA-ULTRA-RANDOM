@@ -1,0 +1,8 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/admin_panel.css"/>
+	</styles>
+    <Panel class="HeroSkillsHolder">
+        <Label id="HeroName"/>
+    </Panel>
+</root>

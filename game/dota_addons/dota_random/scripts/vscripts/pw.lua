@@ -24,8 +24,6 @@ end
 
 function GameMode:OnAllPlayersLoaded()
     SkillHandler:getAbiltiesInfo()
-    -- CustomGameEventManager:Send_ServerToAllClients("fullSkillBox", skillsList)
-
     if ALL_RANDOM then
         GameMode:FillPlayersTable()
         GameMode:PerformAllRandom()

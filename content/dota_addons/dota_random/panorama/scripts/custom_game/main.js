@@ -21,7 +21,7 @@ function Round(x, n) { //x - число, n - количество знаков
 function onInputFieldSubmit(slider, textEntry)
 {   
     var sliderValue = null
-    if (slider == "totalSkills" || slider == "totalUltis") {
+    if (slider == "TotalSkills" || slider == "TotalUltis") {
         sliderValue = Round(Number($.GetContextPanel().GetParent().FindChildTraverse(textEntry).text)/100*10, 2)
     }
     else {
@@ -32,20 +32,20 @@ function onInputFieldSubmit(slider, textEntry)
 
 function onSliderChanged(panelName)
 {
-    if (panelName == "totalSkills" || panelName == "totalUltis"){
+    if (panelName == "TotalSkills" || panelName == "TotalUltis"){
         var oldTotalSkills_var = total_skills_var;
         var oldTotalUlts_var = total_ultis_var;
-        total_skills_var = $.GetContextPanel().GetParent().FindChildTraverse("totalSkills").value;
-        total_ultis_var = $.GetContextPanel().GetParent().FindChildTraverse("totalUltis").value;
+        total_skills_var = $.GetContextPanel().GetParent().FindChildTraverse("TotalSkills").value;
+        total_ultis_var = $.GetContextPanel().GetParent().FindChildTraverse("TotalUltis").value;
 
-        $.GetContextPanel().GetParent().FindChildTraverse("totalSkillsEntry").text = Math.round(total_skills_var * 10);
-        $.GetContextPanel().GetParent().FindChildTraverse("totalUltisEntry").text = Math.round(total_ultis_var * 10);
+        $.GetContextPanel().GetParent().FindChildTraverse("TotalSkillsEntry").text = Math.round(total_skills_var * 10);
+        $.GetContextPanel().GetParent().FindChildTraverse("TotalUltisEntry").text = Math.round(total_ultis_var * 10);
 
         if (oldTotalSkills_var > total_skills_var && total_skills_var < oldTotalUlts_var) {
-            $.GetContextPanel().GetParent().FindChildTraverse("totalUltis").value = $.GetContextPanel().GetParent().FindChildTraverse("totalSkills").value
+            $.GetContextPanel().GetParent().FindChildTraverse("TotalUltis").value = $.GetContextPanel().GetParent().FindChildTraverse("TotalSkills").value
         }
         if (total_ultis_var > oldTotalUlts_var && total_ultis_var > oldTotalSkills_var) {
-            $.GetContextPanel().GetParent().FindChildTraverse("totalSkills").value = $.GetContextPanel().GetParent().FindChildTraverse("totalUltis").value
+            $.GetContextPanel().GetParent().FindChildTraverse("TotalSkills").value = $.GetContextPanel().GetParent().FindChildTraverse("TotalUltis").value
         }
     }
     else {
@@ -76,22 +76,27 @@ function setGameMode()
 		"maxLvl": $.GetContextPanel().GetParent().FindChildTraverse("maxLvl").checked,
 		"creepsSkills": $.GetContextPanel().GetParent().FindChildTraverse("creepsSkills").checked,
 		"Omg": $.GetContextPanel().GetParent().FindChildTraverse("randomSkills").checked,
-		"totalSkills": Number($.GetContextPanel().GetParent().FindChildTraverse("totalSkillsEntry").text),
-		"totalUltis": Number($.GetContextPanel().GetParent().FindChildTraverse("totalUltisEntry").text),
-		"Radius":  Number($.GetContextPanel().GetParent().FindChildTraverse("radiusEntry").text),
-		"Multiplier": Number($.GetContextPanel().GetParent().FindChildTraverse("multiplierEntry").text),
-		"Cooldown": Number($.GetContextPanel().GetParent().FindChildTraverse("cooldownEntry").text),
-		"Range": Number($.GetContextPanel().GetParent().FindChildTraverse("rangeEntry").text),
-		"Duration": Number($.GetContextPanel().GetParent().FindChildTraverse("durationEntry").text),
-		"abilityCastRange": Number($.GetContextPanel().GetParent().FindChildTraverse("abilityCastRangeEntry").text),
-		"omgDM": $.GetContextPanel().GetParent().FindChildTraverse("changeSkillsOnDeath").checked,
-		"Multicast": $.GetContextPanel().GetParent().FindChildTraverse("Multicast").checked,
-		"xSlow": $.GetContextPanel().GetParent().FindChildTraverse("xSlow").checked,
-		"xIllusion": $.GetContextPanel().GetParent().FindChildTraverse("xIllusion").checked,
-		"xArmor": $.GetContextPanel().GetParent().FindChildTraverse("xArmor").checked,
-		"xChance": $.GetContextPanel().GetParent().FindChildTraverse("xChance").checked,
+        "omgDM": $.GetContextPanel().GetParent().FindChildTraverse("changeSkillsOnDeath").checked,
+        "Multicast": $.GetContextPanel().GetParent().FindChildTraverse("Multicast").checked,
         "developerMode": $.GetContextPanel().GetParent().FindChildTraverse("developerMode").checked,
-        "customHeroMode": $.GetContextPanel().GetParent().FindChildTraverse("customHeroMode").checked
+        "customHeroMode": $.GetContextPanel().GetParent().FindChildTraverse("customHeroMode").checked,
+
+		"TotalSkills": Number($.GetContextPanel().GetParent().FindChildTraverse("TotalSkillsEntry").text),
+		"TotalUltis": Number($.GetContextPanel().GetParent().FindChildTraverse("TotalUltisEntry").text),
+
+		"xRadius":  Number($.GetContextPanel().GetParent().FindChildTraverse("xRadiusEntry").text),
+		"xMultiplier": Number($.GetContextPanel().GetParent().FindChildTraverse("xMultiplierEntry").text),
+		"xCooldown": Number($.GetContextPanel().GetParent().FindChildTraverse("xCooldownEntry").text),
+        "xPercentScale": Number($.GetContextPanel().GetParent().FindChildTraverse("xPercentScaleEntry").text),
+        "xUnitsCount": Number($.GetContextPanel().GetParent().FindChildTraverse("xUnitsCountEntry").text),
+        "xSpeed": Number($.GetContextPanel().GetParent().FindChildTraverse("xSpeedEntry").text),
+        "xSkillsSpeed": Number($.GetContextPanel().GetParent().FindChildTraverse("xSkillsSpeedEntry").text),
+        "xModelScale": Number($.GetContextPanel().GetParent().FindChildTraverse("xModelScaleEntry").text),
+		"xRange": Number($.GetContextPanel().GetParent().FindChildTraverse("xRangeEntry").text),
+		"xDuration": Number($.GetContextPanel().GetParent().FindChildTraverse("xDurationEntry").text),
+		"xAbilityCastRange": Number($.GetContextPanel().GetParent().FindChildTraverse("xAbilityCastRangeEntry").text),
+		"xSlow": Number($.GetContextPanel().GetParent().FindChildTraverse("xSlowEntry").text),
+		"xChance": Number($.GetContextPanel().GetParent().FindChildTraverse("xChanceEntry").text)
 	});
 }
 

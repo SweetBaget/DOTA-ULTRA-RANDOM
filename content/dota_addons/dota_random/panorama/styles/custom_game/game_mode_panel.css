@@ -37,12 +37,12 @@
     border: 2px solid #5e686966;
 }
 
-#totalUltisEntry
+#TotalUltisEntry
 {
     width: 10%;
 }
 
-#totalSkillsEntry
+#TotalSkillsEntry
 {
     width: 10%;
 }
@@ -77,97 +77,196 @@
     margin-left: -2%;
 }
 
-#totalSkills{
+#TotalSkills{
     width: 85%;
 }
 
-#totalUltis{
+#TotalUltis{
     width: 85%;
 }
 
-#multiplierRoot
+#xMultiplierRoot
 {
     width: 100%;
     flow-children: right;
 }
 
-#radiusRoot
+#xRadiusRoot
+{
+    width: 100%;
+    flow-children: right;
+}
+#xRadiusEntry
+{
+    width: 13%;
+}
+
+#xRangeRoot
 {
     width: 100%;
     flow-children: right;
 }
 
-#radiusEntry
+#xRangeEntry
 {
     width: 13%;
 }
 
-#rangeRoot
+#xDurationRoot
 {
     width: 100%;
     flow-children: right;
 }
-
-#rangeEntry
+#xDurationEntry
 {
     width: 13%;
 }
 
-#durationRoot
+#xAbilityCastRangeRoot
 {
     width: 100%;
     flow-children: right;
 }
-
-#durationEntry
+#xAbilityCastRangeEntry
 {
     width: 13%;
 }
 
-#abilityCastRangeRoot
+#xSlowRoot
 {
     width: 100%;
     flow-children: right;
 }
-
-#abilityCastRangeEntry
+#xSlowEntry
 {
     width: 13%;
 }
 
-#cooldownRoot
+#xChanceRoot
 {
     width: 100%;
     flow-children: right;
 }
-
-#cooldownEntry
+#xChanceEntry
 {
     width: 13%;
 }
 
-#multiplierEntry
+#xResistancesRoot
+{
+    width: 100%;
+    flow-children: right;
+}
+#xResistancesEntry
 {
     width: 13%;
 }
 
-#Multiplier{
+#xModelScaleRoot
+{
+    width: 100%;
+    flow-children: right;
+}
+#xModelScaleEntry
+{
+    width: 13%;
+}
+
+#xSpeedRoot
+{
+    width: 100%;
+    flow-children: right;
+}
+#xSpeedEntry
+{
+    width: 13%;
+}
+
+#xSkillsSpeedRoot
+{
+    width: 100%;
+    flow-children: right;
+}
+#xSkillsSpeedEntry
+{
+    width: 13%;
+}
+
+#xUnitsCountRoot
+{
+    width: 100%;
+    flow-children: right;
+}
+#xUnitsCountEntry
+{
+    width: 13%;
+}
+
+#xPercentScaleRoot
+{
+    width: 100%;
+    flow-children: right;
+}
+#xPercentScaleEntry
+{
+    width: 13%;
+}
+
+#xCooldownRoot
+{
+    width: 100%;
+    flow-children: right;
+}
+#xCooldownEntry
+{
+    width: 13%;
+}
+
+#xMultiplierEntry
+{
+    width: 13%;
+}
+
+#xMultiplier{
     width: 80%;
 }
-
-#Cooldown{
+#xSlow{
     width: 80%;
 }
-#Range{
+#xChance{
     width: 80%;
 }
-#Duration{
+#xResistances{
     width: 80%;
 }
-#Radius{
+#xModelScale{
     width: 80%;
 }
-#abilityCastRange{
+#xSkillsSpeed{
+    width: 80%;
+}
+#xUnitsCount{
+    width: 80%;
+}
+#xSpeed{
+    width: 80%;
+}
+#xPercentScale{
+    width: 80%;
+}
+#xCooldown{
+    width: 80%;
+}
+#xRange{
+    width: 80%;
+}
+#xDuration{
+    width: 80%;
+}
+#xRadius{
+    width: 80%;
+}
+#xAbilityCastRange{
     width: 80%;
 }
 
@@ -262,32 +361,81 @@
     flow-children: down;
 }
 
-#radiusText{
+#xRadiusText{
     font-size: 19px;
     margin-left: 3%;
 }
-
-#multiplierText{
+#xSlowText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#xChanceText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#xResistancesText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#xModelScaleText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#xSpeedText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#xSkillsSpeedText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#xUnitsCountText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#xPercentScaleText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#UnitsCountText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#ResistancesText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#ModelScaleText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#SpeedText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#SkillsSpeedText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#xMultiplierText{
     font-size: 19px;
     margin-top: 15px;
     margin-left: 3%;
 }
-#cooldownText{
+#xCooldownText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#xAbilityCastRangeText{
+    font-size: 19px;
+    margin-left: 3%;
+}
+#xDurationText{
     font-size: 19px;
     margin-left: 3%;
 }
 
-#abilityCastRangeText{
-    font-size: 19px;
-    margin-left: 3%;
-}
-
-#durationText{
-    font-size: 19px;
-    margin-left: 3%;
-}
-
-#rangeText{
+#xRangeText{
     font-size: 19px;
     margin-left: 3%;
 }

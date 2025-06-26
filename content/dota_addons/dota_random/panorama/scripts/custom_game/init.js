@@ -50,22 +50,33 @@ function applyInitSettings(settings_table)
     // преобразование от 1-1000 до 0-1
     // выставление значения слайдеров автоматически изменяет отображаемое текстовое значение
     // ЕСЛИ ЗНАЧЕНИЕ СЛАЙДЕРА ПО ИТОГУ РАВНО 0, ТО ТЕКСТОВОЕ ЗНАЧЕНИЕ НЕ ПРИСВОИТСЯ
-	parentPanel.FindChildTraverse("totalSkills").value = settings_table.totalSkills / 10;
-	parentPanel.FindChildTraverse("totalUltis").value = settings_table.totalUltis / 10;
+	parentPanel.FindChildTraverse("TotalSkills").value = settings_table.TotalSkills / 10;
+	parentPanel.FindChildTraverse("TotalUltis").value = settings_table.TotalUltis / 10;
     // если значение не меняется (изначально 0), то текстовое значение не изменится
-    parentPanel.FindChildTraverse("Multiplier").value = (settings_table.Multiplier - 1) / 999;
-    parentPanel.FindChildTraverse("Radius").value = (settings_table.Radius - 1) / 999;
-	parentPanel.FindChildTraverse("Range").value = (settings_table.Range - 1) / 999;
-	parentPanel.FindChildTraverse("abilityCastRange").value = (settings_table.abilityCastRange - 1) / 999;
-	parentPanel.FindChildTraverse("Cooldown").value = 1;
-    parentPanel.FindChildTraverse("Cooldown").value = (settings_table.Cooldown - 1) / 999;
-    parentPanel.FindChildTraverse("Duration").value = 1;
-    parentPanel.FindChildTraverse("Duration").value = (settings_table.Duration - 1) / 999;
-
-	parentPanel.FindChildTraverse("xSlow").checked = settings_table.xSlow;
-	parentPanel.FindChildTraverse("xIllusion").checked = settings_table.xIllusion;
-	parentPanel.FindChildTraverse("xArmor").checked = settings_table.xArmor;
-	parentPanel.FindChildTraverse("xChance").checked = settings_table.xChance;
+    parentPanel.FindChildTraverse("xMultiplier").value = (settings_table.xMultiplier - 1) / 999;
+    parentPanel.FindChildTraverse("xRadius").value = (settings_table.xRadius - 1) / 999;
+	parentPanel.FindChildTraverse("xRange").value = (settings_table.xRange - 1) / 999;
+	parentPanel.FindChildTraverse("xAbilityCastRange").value = (settings_table.xAbilityCastRange - 1) / 999;
+	parentPanel.FindChildTraverse("xCooldown").value = 1;
+    parentPanel.FindChildTraverse("xCooldown").value = (settings_table.xCooldown - 1) / 999;
+    parentPanel.FindChildTraverse("xDuration").value = 1;
+    parentPanel.FindChildTraverse("xDuration").value = (settings_table.xDuration - 1) / 999;
+    parentPanel.FindChildTraverse("xSlow").value = 1;
+    parentPanel.FindChildTraverse("xSlow").value = (settings_table.xSlow - 1) / 999;
+    parentPanel.FindChildTraverse("xChance").value = 1;
+    parentPanel.FindChildTraverse("xChance").value = (settings_table.xSlow - 1) / 999;
+	parentPanel.FindChildTraverse("xResistances").value = 1;
+    parentPanel.FindChildTraverse("xResistances").value = (settings_table.xResistances - 1) / 999;
+    parentPanel.FindChildTraverse("xModelScale").value = 1;
+    parentPanel.FindChildTraverse("xModelScale").value = (settings_table.xModelScale - 1) / 999;
+    parentPanel.FindChildTraverse("xSpeed").value = 1;
+    parentPanel.FindChildTraverse("xSpeed").value = (settings_table.xSpeed - 1) / 999;
+    parentPanel.FindChildTraverse("xSkillsSpeed").value = 1;
+    parentPanel.FindChildTraverse("xSkillsSpeed").value = (settings_table.xSkillsSpeed - 1) / 999;
+    parentPanel.FindChildTraverse("xUnitsCount").value = 1;
+    parentPanel.FindChildTraverse("xUnitsCount").value = (settings_table.xUnitsCount - 1) / 999;
+    parentPanel.FindChildTraverse("xPercentScale").value = 1;
+    parentPanel.FindChildTraverse("xPercentScale").value = (settings_table.xPercentScale - 1) / 999;
 
     // из-за того, что элемент скрыт, программа не может найти состояние его параметра
     // parentPanel.FindChildTraverse("developerMode").checked = settings_table.developerMode;

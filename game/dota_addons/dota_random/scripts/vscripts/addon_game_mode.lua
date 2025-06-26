@@ -5,6 +5,9 @@ local npcHeroesKV = LoadKeyValues("scripts/npc/npc_heroes.txt")
 local npcUnitsKV = LoadKeyValues("scripts/npc/npc_units.txt")
 
 function Precache(context)
+    -- Error без прогрузки
+    PrecacheResource("model", "models/heroes/muerta/muerta_ult.vmdl", context)
+
     for heroName, heroInfo in pairs(npcHeroesKV) do
         if type(heroInfo) == "table" then
             if heroInfo.GameSoundsFile ~= nil then

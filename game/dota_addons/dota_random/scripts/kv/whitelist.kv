@@ -16,13 +16,11 @@
     "ancient_apparition_ice_blast" "speed"
     "shadow_shaman_serpentine" "length"
     "dragon_knight_elder_dragon_form" "model_scale"
-    "winter_wyvern_winters_curse" "damage_reduction"
-    "windrunner_powershot" "damage_reduction"
     "warlock_fatal_bonds" "count"
     "techies_sticky_bomb" {"1" "countdown"
                             "2" "speed"
                             "3" "acceleration"
-                            "4" "pre_chase_time"}
+                            }
     "sven_storm_bolt" "bolt_speed"
     "rubick_spell_steal" "projectile_speed"
     "obsidian_destroyer_essence_aura" "restore_amount"
@@ -35,9 +33,7 @@
     "antimage_mana_void" "mana_void_damage_per_mana"
     "death_prophet_exorcism" {"1" "ghost_spawn_rate"
                             "2" "spirit_speed"}
-    "zuus_cloud" "cloud_bolt_interval"
-    "bristleback_bristleback" {"1" "quill_release_threshold"
-                                "2" "quill_release_interval"}
+    "bristleback_bristleback" {"1" "quill_release_threshold"}
     "beastmaster_drums_of_slom" "max_stacks"     
     "axe_counter_helix" "trigger_attacks"     
     "troll_warlord_whirling_axes_ranged" "axe_spread"      
@@ -46,11 +42,9 @@
     "grimstroke_ink_creature" {"1" "latched_unit_offset" 
                                 "2" "latched_unit_offset_short"}
     "shredder_whirling_death" {"1" "stat_loss_pct"
-                                "2" stat_loss_pct}
-    "tusk_ice_shards" {
-        "1" "shard_angle_step"
-        "2" "shard_distance"
-    }
+                                "2" "stat_loss_pct"}
+    "tusk_ice_shards" { "1" "shard_angle_step"
+                        "2" "shard_distance"}
     "monkey_king_wukongs_command" {"1" "num_second_soldiers"
                                     "2" "num_first_soldiers"}
     "mars_bulwark" "soldier_offset"
@@ -58,8 +52,7 @@
     "bloodseeker_rupture" "hp_pct"
     "naga_siren_rip_tide" "hits"
     "omniknight_guardian_angel" "scepter_max_charges"
-    "dark_seer_wall_of_replica" {
-        "1" "replica_damage_outgoing"
+    "dark_seer_wall_of_replica" { "1" "replica_damage_outgoing"
         "2" "tooltip_outgoing"
         "3" "replica_damage_incoming"
         "4" "tooltip_replica_total_damage_incoming"
@@ -72,8 +65,7 @@
     "bloodseeker_bloodrage" "damage_pct"
     "leshrac_diabolic_edict" "num_explosions"
     "lone_druid_spirit_bear" "backlash_damage"
-    "abaddon_borrowed_time" {
-        "1" "immolate_damage"
+    "abaddon_borrowed_time" { "1" "immolate_damage"
         "2" "immolate_aoe"
     }
     "shadow_demon_menace" "stack"
@@ -81,4 +73,32 @@
     "winter_wyvern_arctic_burn" "attack_point"
     "sven_great_cleave" "great_cleave_damage"
     "tinker_march_of_the_machines" "machines_per_sec"
+    "monkey_king_jingu_mastery" { "1" "required_hits"
+        "2" "charges"
+    }
+    "tiny_avalanche" "tick_count"
+    "lone_druid_spirit_bear" "bear_bat"
+    "furion_sprout" { "vision_range" "vision_range"
+    }
+    "furion_force_of_nature" { "1" "treant_vision_day"
+        "2" "treant_vision_night"
+        "treant_xp_bounty" "treant_xp_bounty"
+        "treant_gold_bounty_max" "treant_gold_bounty_max"
+        "treant_gold_bounty_min" "treant_gold_bounty_min"
+    }
+    "monkey_king_tree_dance" { "perched_day_vision" "perched_day_vision"
+        "perched_night_vision" "perched_night_vision"
+    }
+    "chain_frost" { "bonus_jumps_per_creep_killed" "bonus_jumps_per_creep_killed"
+        "bonus_jumps_per_hero_killed" "bonus_jumps_per_hero_killed"
+        "should_fire_chain_frost_on_death" "should_fire_chain_frost_on_death"
+        "has_unlimited_jumps" "has_unlimited_jumps"
+    }
+    "pudge_meat_hook" "hook_width"
+    "pudge_rot" "scepter_rot_regen_reduction_pct"
+    "pudge_dismember" "pull_distance_limit"
+    "hoodwink_acorn_shot" "bounces_after_tree_bounce"
+    "razor_storm_surge" { "strike_cd_reduction_during_storm" "strike_cd_reduction_during_storm"
+        "strike_internal_cd" "strike_internal_cd"
+    }
 }

@@ -13,13 +13,18 @@
     horizontal-align: left;
 }
 
+.HeroSkillsHolder{
+    flow-children: right-wrap;
+    horizontal-align: left;
+}
+
 #SkillHandler{
     horizontal-align: right;
     height: 80%;
     width: 30%;
     margin-top: 3.8%;
     
-    flow-children: right-wrap;
+    flow-children: down;
     overflow: squish scroll;
 
     /* черный фон */
@@ -41,6 +46,11 @@
     margin-top: 10px;
     margin-left: 10px;
 
+    font-size: 30px;
+    color: yellow;
+}
+
+#HeroName{
     font-size: 30px;
     color: yellow;
 }

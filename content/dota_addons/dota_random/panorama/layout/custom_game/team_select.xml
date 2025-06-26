@@ -17,8 +17,8 @@
                 <Label id="gameModeText" text="#GAME_MODE"/>
                 <Panel id="playModeSettings">
                     <DropDown id="playMode" oninputsubmit="setGameMode()">
-                        <Label text="#allPick" id="allPick"/>
-                        <Label text="#allRandom" id="allRandom"/>
+                        <Label text="#AllPick" id="AllPick"/>
+                        <Label text="#AllRandom" id="AllRandom"/>
                     </DropDown>
                     <ToggleButton text="#sameHero" id="sameHero" onmouseover="DOTAShowTextTooltip(&apos;#sameHero_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
                 </Panel>
@@ -53,48 +53,84 @@
                         <ToggleButton text="#changeSkillsOnDeath" id="changeSkillsOnDeath" onmouseover="DOTAShowTextTooltip(&apos;#changeSkillsOnDeath_tip&apos;)" onmouseout="DOTAHideTextTooltip()"  onactivate="setGameMode();" ondeactivate="setGameMode();"/>
                         <Label text="#randomSkillsText" id="randomSkillsText" onmouseover="DOTAShowTextTooltip(&apos;#randomSkillsText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
                         <Panel id="randomSkillsRoot">
-                            <Slider id="totalSkills" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('totalSkills');"/>
-                            <TextEntry id="totalSkillsEntry" maxchars="2" placeholder="..." onmouseout="onInputFieldSubmit('totalSkills', 'totalSkillsEntry');" ontextentrysubmit="onInputFieldSubmit('totalSkills', 'totalSkillsEntry');"/>
+                            <Slider id="TotalSkills" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('TotalSkills');"/>
+                            <TextEntry id="TotalSkillsEntry" maxchars="2" placeholder="..." onmouseout="onInputFieldSubmit('TotalSkills', 'TotalSkillsEntry');" ontextentrysubmit="onInputFieldSubmit('TotalSkills', 'TotalSkillsEntry');"/>
                         </Panel>
                         <Label text="#randomUltimatesText" id="randomUltimatesText" onmouseover="DOTAShowTextTooltip(&apos;#randomUltimatesText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
                         <Panel id="randomUltimatesRoot">
-                            <Slider id="totalUltis" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('totalUltis');"/>
-                            <TextEntry id="totalUltisEntry" maxchars="2" placeholder="..." onmouseout="onInputFieldSubmit('totalUltis', 'totalUltisEntry');" ontextentrysubmit="onInputFieldSubmit('totalUltis', 'totalUltisEntry');"/>
+                            <Slider id="TotalUltis" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('TotalUltis');"/>
+                            <TextEntry id="TotalUltisEntry" maxchars="2" placeholder="..." onmouseout="onInputFieldSubmit('TotalUltis', 'TotalUltisEntry');" ontextentrysubmit="onInputFieldSubmit('TotalUltis', 'TotalUltisEntry');"/>
                         </Panel>
                     </Panel>
-                    <ToggleButton text="#xSlow" id="xSlow" onmouseover="DOTAShowTextTooltip(&apos;#xSlow_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
-                    <ToggleButton text="#xChance" id="xChance" onmouseover="DOTAShowTextTooltip(&apos;#xChance_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
-                    <ToggleButton text="#xIllusion" id="xIllusion" onmouseover="DOTAShowTextTooltip(&apos;#xIllusion_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
-                    <ToggleButton text="#xArmor" id="xArmor" onmouseover="DOTAShowTextTooltip(&apos;#xArmor_tip&apos;)" onmouseout="DOTAHideTextTooltip()" onactivate="setGameMode();" ondeactivate="setGameMode();"/>
-                    <Label text="#multiplierText" id="multiplierText" onmouseover="DOTAShowTextTooltip(&apos;#multiplierText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
-                    <Panel id="multiplierRoot">
-                        <Slider id="Multiplier" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('Multiplier');"/>
-                        <TextEntry id="multiplierEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('Multiplier', 'multiplierEntry');" ontextentrysubmit="onInputFieldSubmit('Multiplier', 'multiplierEntry');"/>
+                    <Label text="#xMultiplierText" id="xMultiplierText" onmouseover="DOTAShowTextTooltip(&apos;#xMultiplierText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="xMultiplierRoot">
+                        <Slider id="xMultiplier" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('xMultiplier');"/>
+                        <TextEntry id="xMultiplierEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('xMultiplier', 'xMultiplierEntry');" ontextentrysubmit="onInputFieldSubmit('xMultiplier', 'xMultiplierEntry');"/>
                     </Panel>
-                    <Label text="#radiusText" id="radiusText" onmouseover="DOTAShowTextTooltip(&apos;#radiusText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
-                    <Panel id="radiusRoot">
-                        <Slider id="Radius" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('Radius');"/>
-                        <TextEntry id="radiusEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('Radius', 'radiusEntry');" ontextentrysubmit="onInputFieldSubmit('Radius', 'radiusEntry');"/>
+                    <Label text="#xRadiusText" id="xRadiusText" onmouseover="DOTAShowTextTooltip(&apos;#xRadiusText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="xRadiusRoot">
+                        <Slider id="xRadius" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('xRadius');"/>
+                        <TextEntry id="xRadiusEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('xRadius', 'xRadiusEntry');" ontextentrysubmit="onInputFieldSubmit('xRadius', 'xRadiusEntry');"/>
                     </Panel>
-                    <Label text="#rangeText" id="rangeText" onmouseover="DOTAShowTextTooltip(&apos;#rangeText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
-                    <Panel id="rangeRoot">
-                        <Slider id="Range" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('Range');"/>
-                        <TextEntry id="rangeEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('Range', 'rangeEntry');" ontextentrysubmit="onInputFieldSubmit('Range', 'rangeEntry');"/>
+                    <Label text="#xRangeText" id="xRangeText" onmouseover="DOTAShowTextTooltip(&apos;#xRangeText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="xRangeRoot">
+                        <Slider id="xRange" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('xRange');"/>
+                        <TextEntry id="xRangeEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('xRange', 'xRangeEntry');" ontextentrysubmit="onInputFieldSubmit('xRange', 'xRangeEntry');"/>
                     </Panel>
-                    <Label text="#durationText" id="durationText" onmouseover="DOTAShowTextTooltip(&apos;#durationText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
-                    <Panel id="durationRoot">
-                        <Slider id="Duration" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('Duration');"/>
-                        <TextEntry id="durationEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('Duration', 'durationEntry');" ontextentrysubmit="onInputFieldSubmit('Duration', 'durationEntry');"/>
+                    <Label text="#xDurationText" id="xDurationText" onmouseover="DOTAShowTextTooltip(&apos;#xDurationText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="xDurationRoot">
+                        <Slider id="xDuration" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('xDuration');"/>
+                        <TextEntry id="xDurationEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('xDuration', 'xDurationEntry');" ontextentrysubmit="onInputFieldSubmit('xDuration', 'xDurationEntry');"/>
                     </Panel>
-                    <Label text="#abilityCastRangeText" id="abilityCastRangeText" onmouseover="DOTAShowTextTooltip(&apos;#abilityCastRangeText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
-                    <Panel id="abilityCastRangeRoot">
-                        <Slider id="abilityCastRange" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('abilityCastRange');"/>
-                        <TextEntry id="abilityCastRangeEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('abilityCastRange', 'abilityCastRangeEntry');" ontextentrysubmit="onInputFieldSubmit('abilityCastRange', 'abilityCastRangeEntry');"/>
+                    <Label text="#xAbilityCastRangeText" id="xAbilityCastRangeText" onmouseover="DOTAShowTextTooltip(&apos;#xAbilityCastRangeText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="xAbilityCastRangeRoot">
+                        <Slider id="xAbilityCastRange" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('xAbilityCastRange');"/>
+                        <TextEntry id="xAbilityCastRangeEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('xAbilityCastRange', 'xAbilityCastRangeEntry');" ontextentrysubmit="onInputFieldSubmit('xAbilityCastRange', 'xAbilityCastRangeEntry');"/>
                     </Panel>
-                    <Label text="#cooldownText" id="cooldownText" onmouseover="DOTAShowTextTooltip(&apos;#cooldownText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
-                    <Panel id="cooldownRoot">
-                        <Slider id="Cooldown" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('Cooldown');"/>
-                        <TextEntry id="cooldownEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('Cooldown', 'cooldownEntry');" ontextentrysubmit="onInputFieldSubmit('Cooldown', 'cooldownEntry');"/>
+                    <Label text="#xPercentScaleText" id="xPercentScaleText" onmouseover="DOTAShowTextTooltip(&apos;#xPercentScale_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="xPercentScaleRoot">
+                        <Slider id="xPercentScale" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('xPercentScale');"/>
+                        <TextEntry id="xPercentScaleEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('xPercentScale', 'xPercentScaleEntry');" ontextentrysubmit="onInputFieldSubmit('xPercentScale', 'xPercentScaleEntry');"/>
+                    </Panel>
+                    <Label text="#xUnitsCountText" id="xUnitsCountText" onmouseover="DOTAShowTextTooltip(&apos;#xUnitsCountText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="xUnitsCountRoot">
+                        <Slider id="xUnitsCount" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('xUnitsCount');"/>
+                        <TextEntry id="xUnitsCountEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('xUnitsCount', 'xUnitsCountEntry');" ontextentrysubmit="onInputFieldSubmit('xUnitsCount', 'xUnitsCountEntry');"/>
+                    </Panel>
+                    <Label text="#xCooldownText" id="xCooldownText" onmouseover="DOTAShowTextTooltip(&apos;#xCooldownText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="xCooldownRoot">
+                        <Slider id="xCooldown" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('xCooldown');"/>
+                        <TextEntry id="xCooldownEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('xCooldown', 'xCooldownEntry');" ontextentrysubmit="onInputFieldSubmit('xCooldown', 'xCooldownEntry');"/>
+                    </Panel>
+                    <Label text="#xChanceText" id="xChanceText" onmouseover="DOTAShowTextTooltip(&apos;#xChanceText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="xChanceRoot">
+                        <Slider id="xChance" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('xChance');"/>
+                        <TextEntry id="xChanceEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('xChance', 'xChanceEntry');" ontextentrysubmit="onInputFieldSubmit('xChance', 'xChanceEntry');"/>
+                    </Panel>
+                    <Label text="#xSlowText" id="xSlowText" onmouseover="DOTAShowTextTooltip(&apos;#xSlowText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="xSlowRoot">
+                        <Slider id="xSlow" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('xSlow');"/>
+                        <TextEntry id="xSlowEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('xSlow', 'xSlowEntry');" ontextentrysubmit="onInputFieldSubmit('xSlow', 'xSlowEntry');"/>
+                    </Panel>
+                    <Label text="#xResistancesText" id="xResistancesText" onmouseover="DOTAShowTextTooltip(&apos;#xResistancesText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="xResistancesRoot">
+                        <Slider id="xResistances" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('xResistances');"/>
+                        <TextEntry id="xResistancesEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('xResistances', 'xResistancesEntry');" ontextentrysubmit="onInputFieldSubmit('xResistances', 'xResistancesEntry');"/>
+                    </Panel>
+                    <Label text="#xModelScaleText" id="xModelScaleText" onmouseover="DOTAShowTextTooltip(&apos;#xModelScaleText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="xModelScaleRoot">
+                        <Slider id="xModelScale" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('xModelScale');"/>
+                        <TextEntry id="xModelScaleEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('xModelScale', 'xModelScaleEntry');" ontextentrysubmit="onInputFieldSubmit('xModelScale', 'xModelScaleEntry');"/>
+                    </Panel>
+                    <Label text="#xSpeedText" id="xSpeedText" onmouseover="DOTAShowTextTooltip(&apos;#xSpeedText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="xSpeedRoot">
+                        <Slider id="xSpeed" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('xSpeed');"/>
+                        <TextEntry id="xSpeedEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('xSpeed', 'xSpeedEntry');" ontextentrysubmit="onInputFieldSubmit('xSpeed', 'xSpeedEntry');"/>
+                    </Panel>
+                    <Label text="#xSkillsSpeedText" id="xSkillsSpeedText" onmouseover="DOTAShowTextTooltip(&apos;#xSkillsSpeedText_tip&apos;)" onmouseout="DOTAHideTextTooltip()" />
+                    <Panel id="xSkillsSpeedRoot">
+                        <Slider id="xSkillsSpeed" class="HorizontalSlider2" direction="horizontal" onvaluechanged="onSliderChanged('xSkillsSpeed');"/>
+                        <TextEntry id="xSkillsSpeedEntry" maxchars="5" placeholder="..." onmouseout="onInputFieldSubmit('xSkillsSpeed', 'xSkillsSpeedEntry');" ontextentrysubmit="onInputFieldSubmit('xSkillsSpeed', 'xSkillsSpeedEntry');"/>
                     </Panel>
                 </Panel>
             </Panel>    

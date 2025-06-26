@@ -255,7 +255,7 @@ function onSetGameMode(eventSourceIndex, args)
     parsed = args
     if parsed == nil then return end
     
-    if (parsed.Gamemode == 'allRandom')    then ALL_RANDOM   = true else ALL_RANDOM    = false end
+    if (parsed.Gamemode == 'AllRandom')    then ALL_RANDOM   = true else ALL_RANDOM    = false end
     if (tonumber(parsed.sameHero) == 1) then SAME_HERO = true else SAME_HERO = false end
 
     if (tonumber(parsed.disableAttackSpeedCap) == 1) then DISABLE_ATTACK_SPEED_CAP = true else DISABLE_ATTACK_SPEED_CAP = false end
@@ -276,33 +276,41 @@ function onSetGameMode(eventSourceIndex, args)
     if (tonumber(parsed.maxLvl) == 1)   then MAX_LEVEL_BOOL   = true else MAX_LEVEL_BOOL    = false end
     if (tonumber(parsed.creepsSkills) == 1)   then CREEPS_SKILLS_BOOL   = true else CREEPS_SKILLS_BOOL     = false end
     if parsed.precacheParticles == 0 then PRECACHE_PARTICLES = false else PRECACHE_PARTICLES = true end
-    if (tonumber(parsed.xChance) == 1)   then xChance = true else xChance = false end
-    if (tonumber(parsed.xSlow) == 1) then xSlow = true else xSlow = false end
-    if (tonumber(parsed.xIllusion) == 1) then xIllusion = true else xIllusion = false end
-    if (tonumber(parsed.xArmor) == 1) then xArmor = true else xArmor = false end
     if (tonumber(parsed.omgDM) == 1) then DM_OMG = true else DM_OMG = false end
 
-    maxUlts   = parsed.totalUltis
-    maxSlots  = parsed.totalSkills
+    maxUlts   = parsed.TotalUltis
+    maxSlots  = parsed.TotalSkills
     maxSkills = maxSlots - maxUlts
 
-    xMultiplier = parsed.Multiplier
-    xCooldown = parsed.Cooldown
-    xRadius = parsed.Radius
-    xRange = parsed.Range
-    xDuration = parsed.Duration
-    xAbilityCastRange = parsed.abilityCastRange
+    xMultiplier = parsed.xMultiplier
+    xAbilityCastRange = parsed.xAbilityCastRange
+    xCooldown = parsed.xCooldown
+    xDuration = parsed.xDuration
+    xRange = parsed.xRange
+    xRadius = parsed.xRadius
+    xChance = parsed.xChance
+    xSlow = parsed.xSlow
+    xPercentScale = parsed.xPercentScale
+    xResistances = parsed.xResistances
+    xModelScale = parsed.xModelScale
+    xSpeed = parsed.xSpeed
+    xSkillsSpeed = parsed.xSkillsSpeed
+    xUnitsCount = parsed.xUnitsCount
     -------------------
+    settings["xMultiplier"] = xMultiplier
     settings["xAbilityCastRange"] = xAbilityCastRange
     settings["xCooldown"] = xCooldown
     settings["xDuration"] = xDuration
     settings["xRange"] = xRange
-    settings["xMultiplier"] = xMultiplier
     settings["xRadius"] = xRadius
     settings["xChance"] = xChance
     settings["xSlow"] = xSlow
-    settings["xIllusion"] = xIllusion
-    settings["xArmor"] = xArmor
+    settings["xPercentScale"] = xPercentScale
+    settings["xResistances"] = xResistances
+    settings["xModelScale"] = xModelScale
+    settings["xSpeed"] = xSpeed
+    settings["xSkillsSpeed"] = xSkillsSpeed
+    settings["xUnitsCount"] = xUnitsCount
     CustomNetTables:SetTableValue("settings", "settings", settings)
 
     -- именно здесь, так как настраивали

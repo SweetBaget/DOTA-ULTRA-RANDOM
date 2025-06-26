@@ -39,7 +39,8 @@ function setSkillInfo(skillTable){
             createChildParams(skillTable[key], key)
         }
         else {
-            newParam.GetChild(0).text = key.concat(": ");
+            // newParam.GetChild(0).text = key.concat(": ");
+            newParam.GetChild(0).text = key
             newParam.GetChild(1).text = skillTable[key];
         }
 
@@ -63,7 +64,15 @@ function fullSkillBox(skillsList)
             // $.Msg("Рабочая врожденная способность");
             continue;
         }
-        var newSkill = $.CreatePanel("Panel", SkillHandler, key);
+        var HeroName = skillsList[key]["HeroName"]
+        var HeroSkillsPanel = $.GetContextPanel().GetParent().GetParent().GetParent().FindChildTraverse(HeroName);
+        if (HeroSkillsPanel == null) {
+            var HeroSkillsPanel = $.CreatePanel("Panel", SkillHandler, HeroName);
+            HeroSkillsPanel.BLoadLayout("file://{resources}/layout/custom_game/HeroSkillsHolder.xml", false, false);
+            HeroSkillsPanel.GetChild(0).text = HeroName;
+        }
+        
+        var newSkill = $.CreatePanel("Panel", HeroSkillsPanel, key);
         newSkill.BLoadLayout("file://{resources}/layout/custom_game/skill_button.xml", false, false);
         newSkill.GetChild(0).GetChild(0).SetImage("file://{images}/spellicons/".concat(key).concat(".png"));
     }

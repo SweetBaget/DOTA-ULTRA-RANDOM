@@ -13,7 +13,7 @@
             <Image src="s2r://panorama/images/control_icons/double_arrow_right_png.vtex" />
         </Button>
         <Panel id="SkillParams" hittest="true">
-            <Label id="tableText"/>
+            <Label id="tableText" text=""/>
         </Panel>
         <Button id="CloseSkillParams" onactivate="switchWindow('SkillParams')">
             <Image src="s2r://panorama/images/control_icons/double_arrow_left_png.vtex" />

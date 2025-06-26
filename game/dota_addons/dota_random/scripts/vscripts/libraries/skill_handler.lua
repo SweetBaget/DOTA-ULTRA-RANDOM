@@ -35,6 +35,7 @@ function SkillHandler:getAbiltiesInfo()
             local abilsHero = LoadKeyValues("scripts/npc/heroes/" .. heroName .. ".txt")
             for abilityName, abilityInfo in pairs(abilsHero) do
                 if abilityName ~= "Version" and not string.match(abilityName, "special_bonus") then
+                    abilityInfo["HeroName"] = heroName
                     allAbilities[abilityName] = abilityInfo
                 end
             end
@@ -45,6 +46,7 @@ function SkillHandler:getAbiltiesInfo()
             if type(abilityInfo) == "table" then
                 skillsList[abilityName] = {}
                 skillsList[abilityName]["abilityName"] = abilityName
+                skillsList[abilityName]["HeroName"] = abilityInfo["HeroName"]
                 for k_ab, v_ab in pairs(abilityInfo) do
                     if k_ab == "IsGrantedByShard" then
                         skillsList[abilityName]["IsGrantedByShard"] = "1"
@@ -52,10 +54,10 @@ function SkillHandler:getAbiltiesInfo()
                     if k_ab == "IsGrantedByScepter" then
                         skillsList[abilityName]["IsGrantedByScepter"] = "1"
                     end
-                    if k_ab == "AbilityType" and v_ab == "DOTA_ABILITY_TYPE_ULTIMATE" then
+                    if k_ab == "AbilityType" and v_ab == "ABILITY_TYPE_ULTIMATE" then
                         skillsList[abilityName]["IsUltimate"] = "1"
                     end
-                    if k_ab == "AbilityType" and v_ab == "DOTA_ABILITY_TYPE_ATTRIBUTES" then
+                    if k_ab == "AbilityType" and v_ab == "ABILITY_TYPE_ATTRIBUTES" then
                         skillsList[abilityName]["IsAttributeBonus"] = "1"
                     end
                     if k_ab == "AbilityBehavior" and string.match(v_ab, "DOTA_ABILITY_BEHAVIOR_HIDDEN") then
@@ -109,7 +111,7 @@ function SkillHandler:getAbiltiesInfo()
                         if k_ab == "IsGrantedByScepter" then
                             skillsList[abilityName]["IsGrantedByScepter"] = "1"
                         end
-                        if k_ab == "AbilityType" and v_ab == "DOTA_ABILITY_TYPE_ULTIMATE" then
+                        if k_ab == "AbilityType" and v_ab == "ABILITY_TYPE_ULTIMATE" then
                             skillsList[abilityName]["IsUltimate"] = "1"
                         end
                         if k_ab == "AbilityType" and v_ab == "DOTA_ABILITY_TYPE_ATTRIBUTES" then
@@ -260,10 +262,7 @@ local function checkAbilityPlusPassive(hero, skill)
     local isGoodSkill = true
     if not pcall(function() 
         local checkAbility = hero:AddAbility(skill)
-        local abilityBehavior = checkAbility:GetBehavior()
-        if string.match(abilityBehavior, "DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS") then
-            abilityIsPassive = true
-        end
+        abilityIsPassive = checkAbility:IsPassive()
         hero:RemoveAbility(skill)
     end) then
         isGoodSkill = false
@@ -274,23 +273,21 @@ end
 
 function SkillHandler:insertBuildSkill(playerBuilds, skill, abilityIsPassive, isGoodSkill, playerID)
     if abilityIsPassive == true and isGoodSkill == true then
-        playerBuilds[playerID]["passives"][skill] = skill
+        table.insert(playerBuilds[playerID]["passives"], skill)
     elseif abilityIsPassive == false and isGoodSkill == true then
-        playerBuilds[playerID]["skills"][skill] = skill
+        table.insert(playerBuilds[playerID]["skills"], skill)
     end
 end
 
-function SkillHandler:addSubSkill(playerBuilds, hero, skill, playerID)
+function SkillHandler:addSubSkill(playerBuilds, skill, playerID)
     local subSkillInfo = subSkills[skill]
     if type(subSkillInfo) == "table" then
         for _, subSkill in pairs(subSkillInfo) do
-            local abilityIsPassive, isGoodSkill = checkAbilityPlusPassive(hero, subSkill)
-            playerBuilds = self:insertBuildSkill(playerBuilds, subSkill, abilityIsPassive, isGoodSkill, playerID)
+            playerBuilds = self:insertBuildSkill(playerBuilds, subSkill, false, true, playerID)
         end
     elseif subSkillInfo ~= nil then
         local subSkill = subSkillInfo
-        local abilityIsPassive, isGoodSkill = checkAbilityPlusPassive(hero, subSkill)
-        playerBuilds = self:insertBuildSkill(playerBuilds, subSkill, abilityIsPassive, isGoodSkill, playerID)
+        playerBuilds = self:insertBuildSkill(playerBuilds, subSkill, false, true, playerID)
     end
 end
 
@@ -310,7 +307,6 @@ function SkillHandler:getRandomSkills(playerBuilds, prevBuilds, abilsCount, ulti
     playerBuilds[playerID]["skills"] = {}
     playerBuilds[playerID]["passives"] = {}
     playerBuilds[playerID]["linkedSkills"] = {}
-    
     for i = 1, abilsCount do
         local skill
         local isGoodSkill
@@ -347,7 +343,7 @@ function SkillHandler:getRandomSkills(playerBuilds, prevBuilds, abilsCount, ulti
             ::nextAbility::
         end
         self:insertBuildSkill(playerBuilds, skill, abilityIsPassive, isGoodSkill, playerID)
-        self:addSubSkill(hero, skill, playerID)
+        self:addSubSkill(playerBuilds, skill, playerID)
         addLinkedSkill(playerBuilds, skill, playerID)
     end
     if ultimatesCount > 0 then
@@ -358,8 +354,10 @@ function SkillHandler:getRandomSkills(playerBuilds, prevBuilds, abilsCount, ulti
             while true do
                 isGoodUlt = true
                 ult = self:getRandomUltimate(hero)
+                print(ult)
                 if not pcall(function() 
                     abilityIsPassive, isGoodUlt = checkAbilityPlusPassive(hero, ult)
+                    print(abilityIsPassive, isGoodUlt)
                 end) then
                     isGoodUlt = false
                     if ult then
@@ -368,6 +366,7 @@ function SkillHandler:getRandomSkills(playerBuilds, prevBuilds, abilsCount, ulti
                         print("Не определен ульт")
                     end
                 end
+                print(prevBuilds[playerID])
                 -- Если скилла нет в прошлом билде, если скилла нет в этом билде, и в новом билде то заканчиваем перебор
                 if prevBuilds[playerID] ~= nil then
                     if TableContains(prevBuilds[playerID]["skills"], ult) or
@@ -387,11 +386,10 @@ function SkillHandler:getRandomSkills(playerBuilds, prevBuilds, abilsCount, ulti
                 ::nextUlt::
             end
             self:insertBuildSkill(playerBuilds, ult, abilityIsPassive, isGoodUlt, playerID)
-            self:addSubSkill(hero, ult, playerID)
+            self:addSubSkill(playerBuilds, ult, playerID)
             addLinkedSkill(playerBuilds, ult, playerID)
         end
     end
-
     if INNATE_ALLOWED then
         local newInnateAbil = innateAbilities[math.random(#innateAbilities)]
         playerBuilds[playerID]["skills"][newInnateAbil] = newInnateAbil

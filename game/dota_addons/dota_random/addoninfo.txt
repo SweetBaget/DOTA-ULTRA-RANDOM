@@ -2,10 +2,7 @@
 	HideInTools = false
 	IsPlayable = true
 	IsTemplate = false
-	maps = 
-	[
-		"dota"
-	]
+	maps = "dota"
 	CheckAFKPlayers = false
 	DefaultMap = "dota"
 	Default_Keys = null
@@ -18,7 +15,7 @@
 	MinimalPrecache = true
 	MinPlayers = 1
 	MaxPlayers = 10
-	map_options = [  ]
+	map_options = [ ]
 	PenaltiesEnabled = false
 	TeamCount = -1
 }

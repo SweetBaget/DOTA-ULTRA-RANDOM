@@ -9,19 +9,40 @@ function modifier_spells_randomize_values:IsHidden() return true end
 function modifier_spells_randomize_values:IsDebuff() return false end
 
 -------------------------INIT VALUES-------------------------
-local slowValues = {
-    ["broodmother_silken_bola"] = "movement_speed",
-	["necrolyte_ghost_shroud"] = "movement_speed"
-}
-
 local exceptValues = {}
 local whiteList = {}
 local bannedSkills = {}
-
 local exceptValuesKV = LoadKeyValues("scripts/kv/exceptValues.kv")
+local whiteListKV = LoadKeyValues("scripts/kv/WhiteList.kv")
 local bannedSkillsKV = LoadKeyValues("scripts/kv/bannedSkills.kv")
 
-local whiteListKV = LoadKeyValues("scripts/kv/WhiteList.kv")
+local SlowValues = {}
+local SlowValuesKV = LoadKeyValues("scripts/kv/ValuesCategories/SlowValues.kv")
+local ModelScaleValues = {}
+local ModelScaleValuesKV = LoadKeyValues("scripts/kv/ValuesCategories/ModelScaleValues.kv")
+local PercentScaleValues = {}
+local PercentScaleValuesKV = LoadKeyValues("scripts/kv/ValuesCategories/PercentScaleValues.kv")
+local ChancesValues = {}
+local ChancesValuesKV = LoadKeyValues("scripts/kv/ValuesCategories/ChancesValues.kv")
+local CastRangeValues = {}
+local CastRangeValuesKV = LoadKeyValues("scripts/kv/ValuesCategories/CastRangeValues.kv")
+local RangeValues = {}
+local RangeValuesKV = LoadKeyValues("scripts/kv/ValuesCategories/RangeValues.kv")
+local RadiusValues = {}
+local RadiusValuesKV = LoadKeyValues("scripts/kv/ValuesCategories/RadiusValues.kv")
+local DurationValues = {}
+local DurationValuesKV = LoadKeyValues("scripts/kv/ValuesCategories/DurationValues.kv")
+local SpeedValues = {}
+local SpeedValuesKV = LoadKeyValues("scripts/kv/ValuesCategories/SpeedValues.kv")
+local SkillsSpeedValues = {}
+local SkillsSpeedValuesKV = LoadKeyValues("scripts/kv/ValuesCategories/SkillsSpeedValues.kv")
+local UnitsCountValues = {}
+local UnitsCountValuesKV = LoadKeyValues("scripts/kv/ValuesCategories/UnitsCountValues.kv")
+
+for key, value in pairs(PercentScaleValuesKV) do
+    PercentScaleValues[key] = value
+end
+
 for ability, values in pairs(whiteListKV) do
 	whiteList[ability] = values
 end
@@ -60,7 +81,7 @@ function modifier_spells_randomize_values:OnCreated(params)
 end
 
 -- function modifier_spells_randomize_values:scaleParam(abilityName, paramName, paramValue)
---     local skipBool = self:valueIsIgnore(abilityName, paramName)
+--     local skipBool = self:GetValueMultiplier(abilityName, paramName)
 --     if skipBool == true or skipBool == 1 then
 --         abilitiesAndVals[abilityName][k] = 1
 --     end
@@ -105,11 +126,11 @@ function modifier_spells_randomize_values:updateSkillsInfo()
 --                         for thrdType, thrdValue in pairs(y) do
 --                             local skipBool
 --                             if thrdType == "value" and not isTalent then
---                                 skipBool = self:valueIsIgnore(abilityName, x)
+--                                 skipBool = self:GetValueMultiplier(abilityName, x)
 --                             elseif thrdType == "value" and isTalent then 
---                                 skipBool = self:valueIsIgnore(nil, abilityName)
+--                                 skipBool = self:GetValueMultiplier(nil, abilityName)
 --                             else
---                                 skipBool = self:valueIsIgnore(abilityName, thrdType)
+--                                 skipBool = self:GetValueMultiplier(abilityName, thrdType)
 --                             end
 --                             if skipBool == true or skipBool == 1 then
 --                                 goto continue3
@@ -124,7 +145,7 @@ function modifier_spells_randomize_values:updateSkillsInfo()
 --                         end
                         
 --                     else
---                         local skipBool = self:valueIsIgnore(abilityName, x)
+--                         local skipBool = self:GetValueMultiplier(abilityName, x)
 --                         if skipBool == true or skipBool == 1 then
 --                             goto continue2
 --                         end
@@ -133,7 +154,7 @@ function modifier_spells_randomize_values:updateSkillsInfo()
 --                     ::continue2::
 --                 end
 --             else
---                 local skipBool = self:valueIsIgnore(abilityName, paramName)
+--                 local skipBool = self:GetValueMultiplier(abilityName, paramName)
 --                 if skipBool == true or skipBool == 1 then
 --                     goto continue
 --                 end
@@ -166,11 +187,19 @@ function modifier_spells_randomize_values:GetModifierOverrideAbilitySpecialValue
     if IsClient() then
         settings = CustomNetTables:GetTableValue("settings", "settings")
         xAbilityCastRange = settings["xAbilityCastRange"]
-        xCooldown = settings["xCooldown"]
-        xDuration = settings["xDuration"]
-        xRange = settings["xRange"]
-        xMultiplier = settings["xMultiplier"]
-        xRadius = settings["xRadius"]
+		xCooldown = settings["xCooldown"]
+		xDuration = settings["xDuration"]
+		xRange = settings["xRange"]
+		xMultiplier = settings["xMultiplier"]
+		xRadius = settings["xRadius"]
+		xChance = settings["xChance"]
+		xSlow = settings["xSlow"]
+        xPercentScale = settings["xPercentScale"]
+        xResistances = settings["xResistances"]
+        xModelScale = settings["xModelScale"]
+        xSpeed = settings["xSpeed"]
+        xSkillsSpeed = settings["xSkillsSpeed"]
+        xUnitsCount = settings["xUnitsCount"]
     end
     local szAbilityName = params.ability:GetAbilityName()
 	local szSpecialValueName = params.ability_special_value
@@ -186,32 +215,21 @@ function modifier_spells_randomize_values:GetModifierOverrideAbilitySpecialValue
         end
     end
     if valueMultiplier == nil then
-        local skipBool = self:valueIsIgnore(szAbilityName, szSpecialValueName)
-		if skipBool == true or skipBool == 1 then
-			return baseValue
-		end
-		if skipBool == "radius" then valueMultiplier = xRadius
-		elseif skipBool == "cooldown" then valueMultiplier = xCooldown
-		elseif skipBool == "duration" then valueMultiplier = xDuration
-		elseif skipBool == "range" then valueMultiplier = xRange
-		elseif skipBool == "AbilityCastRange" then valueMultiplier = xAbilityCastRange
-		else
-			valueMultiplier = xMultiplier
-            -- ВОЗМОЖНЫ ЛАГИ
-            -- if IsServer() then
-            --     if not pcall(function (...)
-            --         abilitiesAndVals[szAbilityName][szSpecialValueName] = valueMultiplier
-            --     end) then
-            --         abilitiesAndVals[szAbilityName] = {}
-            --         abilitiesAndVals[szAbilityName][szSpecialValueName] = valueMultiplier
-            --     end
-            --     CustomNetTables:SetTableValue("spell_amps_server", tostring(self:GetParent():GetPlayerOwnerID()), abilitiesAndVals)
-            -- end
-		end
+        local returnMultiplier = self:GetValueMultiplier(szAbilityName, szSpecialValueName)
+		-- if returnCheck == "radius" then tAbilityTable[paramName] = xRadius
+        -- elseif returnCheck == "cooldown" then tAbilityTable[paramName] = xCooldown
+        -- elseif returnCheck == "duration" then tAbilityTable[paramName] = xDuration
+        -- elseif returnCheck == "range" then tAbilityTable[paramName] = xRange
+        -- elseif returnCheck == "AbilityCastRange" then tAbilityTable[paramName] = xAbilityCastRange
+        if returnMultiplier then
+            valueMultiplier = returnMultiplier
+        else
+            return baseValue
+        end
     end
     -- print("valueMultiplier", szAbilityName, szSpecialValueName, baseValue, valueMultiplier, IsClient())
     local finalValue = self:RoundFloat(baseValue * valueMultiplier, 2)
-    if finalValue == nil or not finalValue then
+    if finalValue == nil then
         return baseValue
     end
     -- print("finalValue", szAbilityName, szSpecialValueName, baseValue, valueMultiplier, finalValue, IsClient())
@@ -238,7 +256,7 @@ end
 -- 	if szAbilityName == nil or bannedSkills[szAbilityName] == szAbilityName then return base end
 
 -- 	-- if params.ability:IsItem() then
--- 	-- 	local skipBool = self:valueIsIgnore(szAbilityName, szSpecialValueName)
+-- 	-- 	local skipBool = self:GetValueMultiplier(szAbilityName, szSpecialValueName)
 -- 	-- 	if skipBool == true or skipBool == 1 then
 -- 	-- 		return base
 -- 	-- 	end
@@ -269,7 +287,7 @@ end
 -- 		end
 -- 	-- Если нет то обрабатываю в реальном времени
 -- 	else
--- 		local skipBool = self:valueIsIgnore(szAbilityName, szSpecialValueName)
+-- 		local skipBool = self:GetValueMultiplier(szAbilityName, szSpecialValueName)
 -- 		if skipBool == true or skipBool == 1 then
 -- 			return base
 -- 		end
@@ -298,14 +316,14 @@ function modifier_spells_randomize_values:AlterNetTable(szAbilityName)
 	local tAbilityTable = abilitiesAndVals[szAbilityName]
 	-------------
     for paramName, v in pairs(tAbilityTable) do
-        local returnCheck = self:valueIsIgnore(szAbilityName, paramName)
-        if returnCheck == "radius" then tAbilityTable[paramName] = xRadius
-        elseif returnCheck == "cooldown" then tAbilityTable[paramName] = xCooldown
-        elseif returnCheck == "duration" then tAbilityTable[paramName] = xDuration
-        elseif returnCheck == "range" then tAbilityTable[paramName] = xRange
-        elseif returnCheck == "AbilityCastRange" then tAbilityTable[paramName] = xAbilityCastRange
-        elseif not returnCheck then
-            tAbilityTable[paramName] = xMultiplier
+        local returnMultiplier = self:GetValueMultiplier(szAbilityName, paramName)
+        -- if returnCheck == "radius" then tAbilityTable[paramName] = xRadius
+        -- elseif returnCheck == "cooldown" then tAbilityTable[paramName] = xCooldown
+        -- elseif returnCheck == "duration" then tAbilityTable[paramName] = xDuration
+        -- elseif returnCheck == "range" then tAbilityTable[paramName] = xRange
+        -- elseif returnCheck == "AbilityCastRange" then tAbilityTable[paramName] = xAbilityCastRange
+        if returnMultiplier then
+            tAbilityTable[paramName] = returnMultiplier
         end
     end
     -------------
@@ -318,8 +336,7 @@ function modifier_spells_randomize_values:RoundFloat(fNum, iDecimal)
 	return fNum / iNths
 end
 
--- true - не умножаем. false - умножаем
-function modifier_spells_randomize_values:valueIsIgnore(ability, val)
+function modifier_spells_randomize_values:GetValueMultiplier(ability, val)
     -- нужен
 	if IsClient() then
 		settings = CustomNetTables:GetTableValue("settings", "settings")
@@ -331,12 +348,16 @@ function modifier_spells_randomize_values:valueIsIgnore(ability, val)
 		xRadius = settings["xRadius"]
 		xChance = settings["xChance"]
 		xSlow = settings["xSlow"]
-		xIllusion = settings["xIllusion"]
-		xArmor = settings["xArmor"]
+        xPercentScale = settings["xPercentScale"]
+        xResistances = settings["xResistances"]
+        xModelScale = settings["xModelScale"]
+        xSpeed = settings["xSpeed"]
+        xSkillsSpeed = settings["xSkillsSpeed"]
+        xUnitsCount = settings["xUnitsCount"]
 	end
 	-- Специфические условия игнорирования
 	if ability == "item_hand_of_midas" and EASY_MODE == false then
-		return true
+		return false
 	end
 
 	-- Проверка игнорирования умножения значения конкретно у скилла
@@ -345,55 +366,73 @@ function modifier_spells_randomize_values:valueIsIgnore(ability, val)
 		if type(checkValues) == "table" then
 			for i, checkValue in pairs(checkValues) do
 				if checkValue == val then
-					return true
+					return false
 				end
 			end
 		else
 			if checkValues == val then
-				return true
+				return false
 			end
 		end
 	end
 	-- Игнорируем умножение переменных у всех способностей из списка исключений
 	if exceptValues[val] then
-		return true
+		return false
 	end
-	if string.match(val, "cooldown") or string.match(val, "Cooldown")  then
-		return "cooldown"
+    -- вампиризм, криты, хил и т.д. (в будущем разделить)
+    if PercentScaleValuesKV[val] == val then
+        return xPercentScale
+    end
+	if string.match(val, "cooldown") or string.match(val, "Cooldown") then
+		return xCooldown
 	end
-	if string.match(val, "duration") or string.match(val, "Duration") or string.match(val, "drain_length") or string.match(val, "lifetime") then
-		return "duration"
+	if string.match(val, "duration") or string.match(val, "Duration") or DurationValuesKV[val] == val then
+		return xDuration
 	end
-	if string.match(val, "radius") or string.match(val, "Radius") or string.match(val, "aoe") then
-		return "radius"
+	if string.match(val, "radius") or string.match(val, "aoe") or string.match(val, "width") or RadiusValuesKV[val] == val then
+		return xRadius
 	end
-	if val == "AbilityCastRange" then
-		return "AbilityCastRange"
-	elseif string.match(val, "range") or string.match(val, "Range") or string.match(val, "Distance") or string.match(val, "distance") or 
-	string.match(val, "length") or string.match(val, "Length") or string.match(val, "width") or string.match(val, "Width") then
-		return "range"
+	if val == "AbilityCastRange" or CastRangeValuesKV[val] == val then
+		return xAbilityCastRange
+    end
+    if RangeValuesKV["Exclude"][val] == nil and (string.match(val, "range") or string.match(val, "length") or RangeValuesKV[val] == val) then
+		return xRange
 	end
-	-------------
-	if string.match(val, "Chance") or string.match(val, "bonus_cdr") then
+	if string.match(val, "сhance") or ChancesValuesKV[val] == val then
 		return xChance
 	end
-	if (string.match(val, "slow") and not string.match(val, "attackspeed_slow")) or slowValues[ability] == val then
+	if SlowValuesKV["Exclude"][val] == nil and (string.match(val, "slow") or SlowValuesKV[val] == val) then
 		return xSlow
 	end
-	if string.match(val, "images_count") or string.match(val, "max_illusions") then
-		return xIllusion
+	if string.match(val, "armor") or string.match(val, "resistance") then
+		return xResistances
 	end
-	if string.match(val, "armor") and not string.match(val, "magical") then
-		return xArmor
-	end
+    if string.match(val, "modelscale") or ModelScaleValuesKV[val] == val then
+        return xModelScale
+    end
+    if SpeedValuesKV["Exclude"][val] == nil and (string.match(val, "speed") or SpeedValuesKV[val] == val) then
+        return xSpeed
+    end
+    if string.match(val, "projectile_speed") or SkillsSpeedValuesKV[val] == val then
+        return xSkillsSpeed
+    end
+    if UnitsCountValuesKV[val] == val then
+        return xUnitsCount
+    end
 	-------------
-	if string.match(val, "delay") or string.match(val, "interval") or string.match(val, "stun") or string.match(val, "status_resist") or 
-	(string.match(val, "angle") and not string.match(val, "entangle")) or string.match(val, "travel_time") or
-	string.match(val, "damage_reduction") or string.match(val, "time") or (string.match(val, "special_bonus") and string.match(val, "evasion")) or
+	if string.match(val, "delay") or
+    string.match(val, "interval") or
+    string.match(val, "damage_reduction") or
+    string.match(val, "vision") or --тестово убрать весь скейл вижена
+    string.match(val, "_time") or string.sub(val, 1, 5) == "time_" or
+    string.match(val, "height") or
+    string.match(val, "stun") or string.match(val, "status_resist") or 
+	(string.match(val, "angle") and not string.match(val, "entangle")) or
+	(string.match(val, "special_bonus") and string.match(val, "evasion")) or
 	string.match(val, "reduction_pct") or string.match(val, "multiplier")
 	then
-		return true
+		return false
 	end
 	--Если переменная не попало под какое-либо определение, то умножаем
-	return false
+	return xMultiplier
 end
