@@ -161,7 +161,7 @@ PW_PLAYERS_ON_GAME = 10
 mapName = GetMapName()
 
 DEFAULT_MODE_SETTINGS = {}
-DEFAULT_MODE_SETTINGS.Gamemode = "allPick" 	-- GAME MODE
+DEFAULT_MODE_SETTINGS.Gamemode = "AllPick" 	-- GAME MODE
 DEFAULT_MODE_SETTINGS.sameHero = 1 --позволяет выбирать одинаковых героев
 
 DEFAULT_MODE_SETTINGS.easyMode = 0 			-- EASY MODE
@@ -193,10 +193,10 @@ DEFAULT_MODE_SETTINGS.xCooldown = 1 --Множитель кулдаунов
 DEFAULT_MODE_SETTINGS.xAbilityCastRange = 2 --Радиус умений
 DEFAULT_MODE_SETTINGS.xRange = 2 --Множитель дальности умений (стрела мираны)
 DEFAULT_MODE_SETTINGS.xPercentScale = 1 --множитель процентов
-DEFAULT_MODE_SETTINGS.xResistances = 1 --множитель резистов (броня, маг. броня)
-DEFAULT_MODE_SETTINGS.xModelScale = 1 --множитель размеров моделек (от скиллов)
+DEFAULT_MODE_SETTINGS.xResistances = 1 --множитель резистов (броня, маг. броня, статус резисты и т.д.)
+DEFAULT_MODE_SETTINGS.xModelScale = 2 --множитель размеров моделек (от скиллов)
 DEFAULT_MODE_SETTINGS.xSpeed = 1 --множитель скорости
-DEFAULT_MODE_SETTINGS.xSkillsSpeed = 1 --множитель скорости скиллов
+DEFAULT_MODE_SETTINGS.xSkillsSpeed = 2 --множитель скорости скиллов
 DEFAULT_MODE_SETTINGS.xUnitsCount = 1 --множитель количества юнитов
 DEFAULT_MODE_SETTINGS.xChance = 1 --множитель шансов 
 DEFAULT_MODE_SETTINGS.xSlow = 1 --множитель замедлений

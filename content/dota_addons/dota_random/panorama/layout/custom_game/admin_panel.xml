@@ -4,6 +4,7 @@
 	</styles>
 	<scripts>
         <include src="file://{resources}/scripts/custom_game/admin_panel.js"/>
+        <include src="file://{resources}/scripts/custom_game/LocalizeWork.js"/>
 	</scripts>
     <!-- Первая панель типа root -->
 	<Panel class="rootPanel" hittest="false">

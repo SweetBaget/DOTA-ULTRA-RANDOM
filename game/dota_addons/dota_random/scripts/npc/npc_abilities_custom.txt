@@ -1,0 +1,11 @@
+"DOTAAbilities"
+{	
+	"Version" "1"
+	"linken_king_bar_sphere_cooldown"
+	{
+        "BaseClass"						"ability_lua"
+	    "ScriptFile"					"abilities/linken_king_bar_sphere_cooldown.lua"
+        "AbilityBehavior"		        "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+        "AbilityCooldown"               "1"
+	}
+}

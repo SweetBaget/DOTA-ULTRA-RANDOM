@@ -1,0 +1,317 @@
+"DOTAAbilities"
+{	
+	"Version" "1"
+	"item_frozen_skadi"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName" 			"frozen_skadi"
+		"BaseClass" 					"item_skadi"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"11800"
+		"ItemShopTags"					"agi;str;int;hard_to_tag;mana_pool;health_pool;unique;tank"
+		"ItemQuality"					"artifact"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"SuggestLategame"				"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+				"bonus_all_stats"		"70"
+				"bonus_health"			"0"
+				"bonus_mana"			"0"
+				"cold_slow_melee"		"-50"
+				"cold_attack_slow_melee"	"-40"	 // if changing this, change ranged value
+				"cold_slow_ranged"	"-100"
+				"cold_attack_slow_ranged"	"-40"	// if changing this, change melee value
+				"cold_duration"	"6.0"
+				"restoration_reduction" "80"
+				"heal_reduction"	"80"
+		}
+	}
+	"item_recipe_frozen_skadi"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"5900"	
+		"ItemShopTags"					""
+		"BaseClass" 					"item_datadriven"
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_frozen_skadi"
+		"ItemRequirements"
+		{
+			"01"						"item_skadi"
+		}
+	}
+	"item_dark_skadi"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName" 			"dark_skadi"
+		"BaseClass" 					"item_datadriven"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"11800"
+		"ItemShopTags"					"agi;str;int;hard_to_tag;mana_pool;health_pool;unique;tank"
+		"ItemQuality"					"artifact"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"SuggestLategame"				"1"
+
+        
+
+        "Modifiers"
+        {
+            "modifier_dark_skadi"
+            {
+                "Passive" "1"
+                "IsHidden" "1"
+                "Attributes" "MODIFIER_ATTRIBUTE_MULTIPLE" //This makes duplicate items stack their properties
+                "Properties"
+                {
+                    "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS" "%bonus_all_stats"
+                    "MODIFIER_PROPERTY_STATS_AGILITY_BONUS" "%bonus_all_stats"
+                    "MODIFIER_PROPERTY_STATS_INTELLECT_BONUS" "%bonus_all_stats"
+                }
+                "OnAttackLanded"
+                {
+                    "ApplyModifier" {
+                        "ModifierName"  "modifier_silver_edge_debuff"
+                        "Target" "TARGET"
+                        "Duration" "%silver_edge_effect_duration"
+                    }
+                }
+            }
+        }
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_all_stats"		"70"
+            "silver_edge_effect_duration" "0.5"
+		}
+	}
+	"item_recipe_dark_skadi"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"5900"	
+		"ItemShopTags"					""
+		"BaseClass" 					"item_datadriven"
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_dark_skadi"
+		"ItemRequirements"
+		{
+			"01"						"item_skadi"
+		}
+	}
+    "item_linken_king_bar"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityTextureName" 			"linken_king_bar"
+		"BaseClass" 					"item_datadriven"
+        // "ScriptFile"                    "items/item_linken_king_bar.lua"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+        "AbilityCooldown"               "95.0"
+        "AbilityManaCost"               "50"
+		"ItemCost"						"9850"
+		"ItemShopTags"					"agi;str;int;hard_to_tag;mana_pool;health_pool;unique;tank"
+		"ItemQuality"					"artifact"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"SuggestLategame"				"1"
+
+        "Modifiers" {
+            "modifier_item_linken_king_bar" {
+                "Passive" "1"
+                "IsHidden" "1"
+                "Attributes" "MODIFIER_ATTRIBUTE_MULTIPLE" //This makes duplicate items stack their properties
+                "Properties"
+                {
+                    "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS" "%bonus_strength"
+                    "MODIFIER_PROPERTY_STATS_AGILITY_BONUS" "%bonus_agility"
+                    "MODIFIER_PROPERTY_STATS_INTELLECT_BONUS" "%bonus_intellect"
+                    "MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE" "%bonus_damage"
+                    "MODIFIER_PROPERTY_MANA_REGEN_CONSTANT"     "%bonus_mana_regen"
+                    "MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"   "%bonus_health_regen"
+                }
+            }
+        }
+
+        "OnEquip"
+        {
+            "ApplyModifier" {
+                "Target" "CASTER"
+                "ModifierName" "modifier_item_linken_king_bar_sphere"
+            }
+        }
+        "OnUnequip"
+        {
+            "RemoveModifier" {
+                "Target" "CASTER"
+                "ModifierName" "modifier_item_linken_king_bar_sphere"
+            }
+        }
+
+        "OnSpellStart"
+        {
+            "ApplyModifier" {
+                "Target" "CASTER"
+                "ModifierName" "modifier_item_linken_king_bar_active"
+                "Duration" "%duration"
+            }
+            
+        }
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"		"26"
+            "bonus_agility"		"16"
+            "bonus_intellect"   "16"
+            "bonus_damage"      "24"
+			"magic_resist"			"60"
+            "duration" "9"
+            "max_level" "1"
+            "bonus_health_regen"	"6.5"
+            "bonus_mana_regen"		"4.25"
+            "upgrade_absorb_duration"		"10.0"
+            "damage_absorb"		"300"
+            "block_cooldown" "14"
+		}
+	}
+	"item_recipe_linken_king_bar"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1000"	
+		"ItemShopTags"					""
+		"BaseClass" 					"item_datadriven"
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_linken_king_bar"
+		"ItemRequirements"
+		{
+			"01"						"item_black_king_bar;item_sphere"
+		}
+	}
+    "item_bladeheart_mail"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityTextureName" 			"bladeheart_mail"
+		"BaseClass" 					"item_datadriven"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+        "AbilityCooldown"               "25.0"
+        "AbilityManaCost"               "25"
+		"ItemCost"						"7500" //5200
+		"ItemShopTags"					"damage;armor;int;hard_to_tag;tank;str;regen_health;health_pool"
+		"ItemQuality"					"artifact"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"SuggestLategame"				"1"
+
+        "Modifiers" {
+            "modifier_item_bladeheart_mail" {
+                "Passive" "1"
+                "IsHidden" "1"
+                "Attributes" "MODIFIER_ATTRIBUTE_MULTIPLE" //This makes duplicate items stack their properties
+                "Properties"
+                {
+                    "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS" "%bonus_strength"
+                    "MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE" "%bonus_damage"
+                    "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"    "%bonus_armor"
+                    "MODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE"   "%health_regen_pct"
+                }
+            }
+        }
+
+        "OnEquip"
+        {
+            "ApplyModifier" {
+                "Target" "CASTER"
+                "ModifierName" "modifier_item_bladeheart_mail_passive"
+            }
+        }
+        "OnUnequip"
+        {
+            "RemoveModifier" {
+                "Target" "CASTER"
+                "ModifierName" "modifier_item_bladeheart_mail_passive"
+            }
+        }
+
+        "OnSpellStart"
+        {
+            "ApplyModifier" {
+                "Target" "CASTER"
+                "ModifierName" "modifier_item_bladeheart_mail_active"
+                "Duration" "%duration"
+            }
+            
+        }
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"			"18"
+            "bonus_armor"			"6"
+            "duration"				"5.5"
+            "passive_reflection_constant"			"20"
+            "passive_reflection_pct"			"20"
+            "active_reflection_pct"			"85"
+            "bonus_strength"		"40"
+			"health_regen_pct"		"1.4"
+		}
+	}
+	"item_recipe_bladeheart_mail"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1000"	
+		"ItemShopTags"					""
+		"BaseClass" 					"item_datadriven"
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_bladeheart_mail"
+		"ItemRequirements"
+		{
+			"01"						"item_blade_mail;item_heart"
+		}
+	}
+}

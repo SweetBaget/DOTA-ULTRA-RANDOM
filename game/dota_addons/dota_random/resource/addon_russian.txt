@@ -91,5 +91,44 @@
         "xResistancesText"     "Умножение резистов"
         "xResistancesText_tip" "Броня и сопротивление магии"
         "default_settings"    "Хост не выбрал настройки, используем стандартные..."
+
+        // item_linken_king_bar
+        "DOTA_Tooltip_Ability_item_linken_king_bar"			"Linken's Black King Bar"
+        "DOTA_Tooltip_ability_item_linken_king_bar_Description"							"<h1>Активное: Avatar</h1> Применяет на владельца нормальное развеивание. Даёт +%magic_resist%%% к сопротивлению магии и невосприимчивость к чистому и отражённому урону. Защищает владельца от действия отрицательных эффектов.<br><br>Длительность: %duration%<br>Тип развеивания: <span class=\"GameplayValues GameplayVariable\">нормальное</span>\n\n<h1>Пассивное: Spellblock</h1> Блокирует одно направленное заклинание каждые %block_cooldown% сек. Некоторые заклинания не блокируются."
+		"DOTA_Tooltip_ability_item_linken_king_bar_Lore"									"Невероятно редкий артефакт, охраняемый лазурными драконами."
+		"DOTA_Tooltip_ability_item_linken_king_bar_Note0"								"Не блокирует заклинания нейтральных предметов."
+        "DOTA_Tooltip_ability_item_linken_king_bar_bonus_strength"					    "+$str"
+        "DOTA_Tooltip_ability_item_linken_king_bar_bonus_agility"					    "+$agi"
+        "DOTA_Tooltip_ability_item_linken_king_bar_bonus_intellect"					    "+$int"
+        "DOTA_Tooltip_ability_item_linken_king_bar_bonus_damage"                        "+$damage"
+        "DOTA_Tooltip_ability_item_linken_king_bar_bonus_health_regen"                   "+$hp_regen"
+        "DOTA_Tooltip_ability_item_linken_king_bar_bonus_mana_regen"                    "+$mana_regen"
+
+        // item_bladeheart_mail
+        "#DOTA_Tooltip_modifier_item_bladeheart_mail_active" "Отражение атак от Bladeheart Mail"
+        "DOTA_Tooltip_Ability_item_bladeheart_mail"			"Bladeheart Mail"
+        "DOTA_Tooltip_ability_item_bladeheart_mail_Description"							"<h1>Активное: Damage Return</h1>Увеличивает долю возвращаемого урона на %active_reflection_pct%%% и делает так, что владелец отражает любой получаемый урон. Длится %duration% сек.\n\n<h1>Пассивное: Damage Return</h1>Возвращает %passive_reflection_constant% + %passive_reflection_pct%%% урона от каждой атаки атакующим вас существам."
+		"DOTA_Tooltip_ability_item_bladeheart_mail_Lore"									"Сохранившееся сердце вымершего монстра, слитое с острым, как лезвие бритвы, панцирем."
+		"DOTA_Tooltip_ability_item_bladeheart_mail_Note0"							"Урон возвращается в изначальном количестве, до его уменьшения."
+		"DOTA_Tooltip_ability_item_bladeheart_mail_Note1"							"Не отражает урон от других Blade Mail и схожих способностей."
+		"DOTA_Tooltip_ability_item_bladeheart_mail_Note2"							"Возвращаемый урон имеет тот же тип, что и полученный."
+        "DOTA_Tooltip_ability_item_bladeheart_mail_bonus_strength"						"+$str"
+		"DOTA_Tooltip_ability_item_bladeheart_mail_bonus_health"							"+$health"
+		"DOTA_Tooltip_ability_item_bladeheart_mail_health_regen_pct"							"%+макс. здоровья в секунду"
+        "DOTA_Tooltip_ability_item_bladeheart_mail_bonus_damage"						"+$damage"
+		"DOTA_Tooltip_ability_item_bladeheart_mail_bonus_armor"						"+$armor"
+
+        // item_dark_skadi
+        "DOTA_Tooltip_Ability_item_dark_skadi"			"Eye Of Dark Skadi"
+        "DOTA_Tooltip_ability_item_dark_skadi_Description"							"<h1>Пассивное: Dark Attack</h1> Каждая атака отключает пассивные способности жертвы на %silver_edge_effect_duration% сек."
+		"DOTA_Tooltip_ability_item_dark_skadi_Lore"									"Невероятно редкий артефакт, охраняемый лазурными драконами."
+		"DOTA_Tooltip_ability_item_dark_skadi_bonus_all_stats"						"+$all"
+
+        // item_frozen_skadi
+        "DOTA_Tooltip_Ability_item_frozen_skadi"			"Eye Of Frozen Skadi"
+        "DOTA_Tooltip_ability_item_frozen_skadi_Description"							"<h1>Пассивное: Frozen Attack</h1> Добавляет к атакам владельца замедляющий эффект, действующий %cold_duration% сек. Скорость атаки жертвы снижается на %cold_attack_slow_melee%%%, а замедление передвижения зависит от её типа атаки: у существ ближнего боя оно составляет %cold_slow_melee%%%, а у существ дальнего боя — %cold_slow_ranged%%%. Также уменьшает жертвам пополнение здоровья на %restoration_reduction%%%, а получаемое лечение — на %heal_reduction%%%."
+		"DOTA_Tooltip_ability_item_frozen_skadi_Lore"									"Невероятно редкий артефакт, охраняемый лазурными драконами."
+		"DOTA_Tooltip_ability_item_frozen_skadi_bonus_all_stats"						"+$all"
+		
 	}
 }

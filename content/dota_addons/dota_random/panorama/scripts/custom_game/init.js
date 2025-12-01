@@ -64,7 +64,7 @@ function applyInitSettings(settings_table)
     parentPanel.FindChildTraverse("xSlow").value = 1;
     parentPanel.FindChildTraverse("xSlow").value = (settings_table.xSlow - 1) / 999;
     parentPanel.FindChildTraverse("xChance").value = 1;
-    parentPanel.FindChildTraverse("xChance").value = (settings_table.xSlow - 1) / 999;
+    parentPanel.FindChildTraverse("xChance").value = (settings_table.xChance - 1) / 999;
 	parentPanel.FindChildTraverse("xResistances").value = 1;
     parentPanel.FindChildTraverse("xResistances").value = (settings_table.xResistances - 1) / 999;
     parentPanel.FindChildTraverse("xModelScale").value = 1;

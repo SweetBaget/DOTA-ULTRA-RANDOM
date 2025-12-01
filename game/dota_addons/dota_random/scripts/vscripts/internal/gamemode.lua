@@ -1,11 +1,12 @@
 print('[GameMode] Init')
-tempBanList = LoadKeyValues('scripts/kv/ignoreMulticast.kv')
+tempBanList = LoadKeyValues('scripts/kv/IgnoreMulticast.kv')
 multicastChannel = {}
 CREATOR = nil
 CREATOR_ID = nil
 gameModeEntity = nil
 function GameMode:_InitGameMode()
   -- Setup rules
+  GameRules:GetGameModeEntity():SetUseTurboCouriers(true)
   GameRules:EnableCustomGameSetupAutoLaunch(ENABLE_AUTO_LAUNCH)
   GameRules:SetHeroRespawnEnabled(ENABLE_HERO_RESPAWN)
   GameRules:SetUseUniversalShopMode(UNIVERSAL_SHOP_MODE)
@@ -73,6 +74,7 @@ function GameMode:_InitGameMode()
   CustomGameEventManager:RegisterListener("set_game_mode", onSetGameMode)
   CustomGameEventManager:RegisterListener("removeAttributeResistance", function (eventIndex, keys) GameMode:removeAttributeResistance(keys) end)
   CustomGameEventManager:RegisterListener("executeFromServer", executeFromServer)
+--   CustomGameEventManager:RegisterListener("ChangeItemLocalize", ChangeItemLocalize)
 
   local spew = 0
   if BAREBONES_DEBUG_SPEW then
@@ -98,20 +100,20 @@ function executeFromServer(event, keys)
         local addedAbility = hero:AddAbility(newAbility)
         addedAbility:SetLevel(addedAbility:GetMaxLevel())
 
-        -- subSkills
-        local subSkillInfo = subSkills[newAbility]
+        -- SubSkills
+        local subSkillInfo = SubSkills[newAbility]
         if type(subSkillInfo) == "table" then
             for _, subSkill in pairs(subSkillInfo) do
                 local subAbility = hero:AddAbility(subSkill)
                 subAbility:SetLevel(subAbility:GetMaxLevel())
             end
         elseif subSkillInfo ~= nil then
-            local subAbility = hero:AddAbility(subSkills[newAbility])
+            local subAbility = hero:AddAbility(SubSkills[newAbility])
             subAbility:SetLevel(subAbility:GetMaxLevel())
         end
 
-        -- linkedSkills
-        local linkedSkillInfo = linkedSkills[newAbility]
+        -- LinkedSkills
+        local linkedSkillInfo = LinkedSkills[newAbility]
         if type(linkedSkillInfo) == "table" then
             for _, linkedSkill in pairs(linkedSkillInfo) do
                 local linkedAbility = hero:AddAbility(linkedSkill)
@@ -148,8 +150,8 @@ function executeFromServer(event, keys)
         local hero = player:GetAssignedHero()
         local removeAbility = keys.skillName
         hero:RemoveAbility(removeAbility)
-        -- subSkills
-        local subSkillInfo = subSkills[removeAbility]
+        -- SubSkills
+        local subSkillInfo = SubSkills[removeAbility]
         if type(subSkillInfo) == "table" then
             for _, subSkill in pairs(subSkillInfo) do
                 local subAbility = hero:RemoveAbility(subSkill)
@@ -158,8 +160,8 @@ function executeFromServer(event, keys)
             local subAbility = hero:RemoveAbility(subSkillInfo)
         end
 
-        -- linkedSkills
-        local linkedSkillInfo = linkedSkills[removeAbility]
+        -- LinkedSkills
+        local linkedSkillInfo = LinkedSkills[removeAbility]
         if type(linkedSkillInfo) == "table" then
             for _, linkedSkill in pairs(linkedSkillInfo) do
                 local linkedAbility = hero:RemoveAbility(linkedSkill)
@@ -450,7 +452,7 @@ function GameMode:OnNonHeroNpcSpawned(spawnedUnit)
             spawnedUnit:SetHealth(spawnedUnit:GetHealth() * xMultiplier)
 
             -- add protection skill async
-            spawnedUnit:SetBaseMagicalResistanceValue(50)
+            spawnedUnit:SetBaseMagicalResistanceValue(40)
             spawnedUnit:AddAbility('spectre_dispersion') 
             ab = spawnedUnit:FindAbilityByName('spectre_dispersion')
             if ab then
@@ -460,7 +462,7 @@ function GameMode:OnNonHeroNpcSpawned(spawnedUnit)
 
         if string.match(spawnedUnit:GetUnitName(), "creep") or string.match(spawnedUnit:GetUnitName(), "neutral") or string.match(spawnedUnit:GetUnitName(), "siege") then
             if BUFF_CREEPS == true then 
-                spawnedUnit:SetBaseMagicalResistanceValue(50)
+                spawnedUnit:SetBaseMagicalResistanceValue(40)
             end
             if EASY_MODE == true then
                 spawnedUnit:SetMaximumGoldBounty(spawnedUnit:GetGoldBounty() * xMultiplier)

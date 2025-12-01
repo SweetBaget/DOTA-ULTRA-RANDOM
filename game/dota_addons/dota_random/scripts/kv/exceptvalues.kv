@@ -20,7 +20,6 @@
 "24" "invis_threshold_pct"
 "25" "min_bonus_pct"
 "27" "total_steps"
-"29" "health_threshold_pct_tooltip"
 "30" "enemy_movespeed_bonus_pct"
 "31" "scepter_movespeed_bonus_pct"
 "33" "scepter_pushback"
@@ -29,6 +28,7 @@
 "37" "movespeed_bonus"
 "38" "wolf_index"
 "39" "wolf_bat"
+// атак до уничтожения чего-либо
 "40" "destroy_attacks"
 "41" "familiar_speed"
 "42" "familiar_attack_damage"
@@ -64,7 +64,9 @@
 "88" "bonus_spell_resist"
 "89" "hp_cost"
 "94" "brew_explosion"
-"95" "health_threshold_pct"
+//Порог здоровья в процентах
+"health_threshold_pct" "health_threshold_pct"
+"health_threshold_pct_tooltip" "health_threshold_pct_tooltip"
 "96" "mana_cost_percentage"
 "97" "ItemInitialStockTimeTurbo"
 "98" "FightRecapLevel"
@@ -110,10 +112,10 @@
 "146" "ItemPurchasable"
 "147" "ShouldBeSuggested"
 "148" "AbilityManaCost"
+"AbilityHealthCost" "AbilityHealthCost"
 "149" "ID"
 "152" "blade_fury_damage_tick"
 "155" "rot_tick"
-"157" "damage_reflection_pct"
 "158" "min_distance"
 "160" "hp_cost_perc"
 "163" "structure_damage_mod"
@@ -124,7 +126,10 @@
 "168" "health_cost_pct"
 "169" "airtime_scepter_bonus"
 "171" "shard_souls_per_kill"
-"172" "self_damage"
+// урон по себе в процентах
+"self_damage" "self_damage"
+"self_damage_enemy_target" "self_damage_enemy_target"
+"self_damage_pct" "self_damage_pct"
 "173" "quill_stacks"
 "174" "back_angle"
 "175" "side_angle"
@@ -166,10 +171,6 @@
 //item_spirit_vessel дается множитель зарядов
 "270" "soul_initial_charge"
 "271" "soul_additional_charges"
-// процент возвращаемого урона
-"272" "active_reflection_pct"
-"273" "passive_reflection_pct"
-"274" "passive_reflection_constant"
 // сколько процентов хп использовать crimson guard 
 "275" "max_hp_pct"
 // сколько процентов хилить (3 скила)
@@ -189,4 +190,16 @@
 "mana_drain" "mana_drain"
 "required_level" "required_level"
 "attack_animation_bonus" "attack_animation_bonus"
+//дает ли скилл вижн
+"vision_along_indicator" "vision_along_indicator"
+//насколько высоко ты подпрыгиваешь
+"recoil_height" "recoil_height"
+//сколько опыта получаю с юнита
+"experience_gain" "experience_gain"
+//проходит сквозь иммунитет, техно параметр
+"pierces_immunity" "pierces_immunity"
+//разброс спавна юнитов
+"spawn_offset" "spawn_offset"
+//максимальный уровень крипа
+"creep_max_level" "creep_max_level"
 }

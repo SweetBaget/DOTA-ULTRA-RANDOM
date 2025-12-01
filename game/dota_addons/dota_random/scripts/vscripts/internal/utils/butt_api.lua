@@ -293,6 +293,12 @@ end
 ------------
 -- Global --
 ------------
+---
+function RoundFloat(fNum, iDecimal)
+	local iNths = (10^iDecimal)
+	local fNum = fNum * iNths 
+	return fNum / iNths
+end
 
 function HUDError(message, playerID)
 	if ("number"==type(playerID)) then

@@ -17,9 +17,9 @@ prevBuilds = {}
 local innateAbilities = {}
 -- local checkedAbilitiesDEV = {}
 
-local badSkills = LoadKeyValues("scripts/kv/bannedSkills.kv")
-subSkills = LoadKeyValues("scripts/kv/subSkills.kv")
-linkedSkills = LoadKeyValues("scripts/kv/linkedSkills.kv")
+local badSkills = LoadKeyValues("scripts/kv/BannedSkills.kv")
+SubSkills = LoadKeyValues("scripts/kv/SubSkills.kv")
+LinkedSkills = LoadKeyValues("scripts/kv/LinkedSkills.kv")
 
 -- По данным путям не должно лежать никаких файлов, инфа берется из игры
 local npcHeroesKV = LoadKeyValues("scripts/npc/npc_heroes.txt")
@@ -280,33 +280,33 @@ function SkillHandler:insertBuildSkill(playerBuilds, skill, abilityIsPassive, is
 end
 
 function SkillHandler:addSubSkill(playerBuilds, skill, playerID)
-    local subSkillInfo = subSkills[skill]
+    local subSkillInfo = SubSkills[skill]
     if type(subSkillInfo) == "table" then
         for _, subSkill in pairs(subSkillInfo) do
-            playerBuilds = self:insertBuildSkill(playerBuilds, subSkill, false, true, playerID)
+            self:insertBuildSkill(playerBuilds, subSkill, false, true, playerID)
         end
     elseif subSkillInfo ~= nil then
         local subSkill = subSkillInfo
-        playerBuilds = self:insertBuildSkill(playerBuilds, subSkill, false, true, playerID)
+        self:insertBuildSkill(playerBuilds, subSkill, false, true, playerID)
     end
 end
 
 local function addLinkedSkill(playerBuilds, skill, playerID)
-    local linkedSkillInfo = linkedSkills[skill]
+    local linkedSkillInfo = LinkedSkills[skill]
     if type(linkedSkillInfo) == "table" then
         for _, linkedSkill in pairs(linkedSkillInfo) do
-            playerBuilds[playerID]["linkedSkills"][linkedSkill] = linkedSkill
+            playerBuilds[playerID]["LinkedSkills"][linkedSkill] = linkedSkill
         end
     elseif linkedSkillInfo ~= nil then
         local linkedSkill = linkedSkillInfo
-        playerBuilds[playerID]["linkedSkills"][linkedSkill] = linkedSkill
+        playerBuilds[playerID]["LinkedSkills"][linkedSkill] = linkedSkill
     end
 end
 
 function SkillHandler:getRandomSkills(playerBuilds, prevBuilds, abilsCount, ultimatesCount, hero, playerID)
     playerBuilds[playerID]["skills"] = {}
     playerBuilds[playerID]["passives"] = {}
-    playerBuilds[playerID]["linkedSkills"] = {}
+    playerBuilds[playerID]["LinkedSkills"] = {}
     for i = 1, abilsCount do
         local skill
         local isGoodSkill
@@ -327,14 +327,14 @@ function SkillHandler:getRandomSkills(playerBuilds, prevBuilds, abilsCount, ulti
             -- Если скилла нет в прошлом билде, если скилла нет в этом билде, и в новом билде то заканчиваем перебор
             if prevBuilds[playerID] ~= nil then
                 if TableContains(prevBuilds[playerID]["skills"], skill) or
-                TableContains(prevBuilds[playerID]["linkedSkills"], skill) or
+                TableContains(prevBuilds[playerID]["LinkedSkills"], skill) or
                 TableContains(prevBuilds[playerID]["passives"], skill) then
                     goto nextAbility
                 end
             end
             
             if not TableContains(playerBuilds[playerID]["skills"], skill) and
-            not TableContains(playerBuilds[playerID]["linkedSkills"], skill) and
+            not TableContains(playerBuilds[playerID]["LinkedSkills"], skill) and
             not TableContains(playerBuilds[playerID]["passives"], skill)
             and isGoodSkill == true then
                 break
@@ -370,14 +370,14 @@ function SkillHandler:getRandomSkills(playerBuilds, prevBuilds, abilsCount, ulti
                 -- Если скилла нет в прошлом билде, если скилла нет в этом билде, и в новом билде то заканчиваем перебор
                 if prevBuilds[playerID] ~= nil then
                     if TableContains(prevBuilds[playerID]["skills"], ult) or
-                    TableContains(prevBuilds[playerID]["linkedSkills"], ult) or
+                    TableContains(prevBuilds[playerID]["LinkedSkills"], ult) or
                     TableContains(prevBuilds[playerID]["passives"], ult) then
                         goto nextUlt
                     end
                 end
 
                 if not TableContains(playerBuilds[playerID]["skills"], ult) and
-                not TableContains(playerBuilds[playerID]["linkedSkills"], ult) and
+                not TableContains(playerBuilds[playerID]["LinkedSkills"], ult) and
                 not TableContains(playerBuilds[playerID]["passives"], ult)
                 and isGoodUlt == true then
                     break
@@ -445,7 +445,7 @@ function SkillHandler:randomSkillsWork(hero, skillsCount, ultisCount, playerID)
         playerBuilds[playerID] = {
             skills = {},
             passives = {},
-            linkedSkills = {}
+            LinkedSkills = {}
         }
     end
 
@@ -521,7 +521,7 @@ function SkillHandler:setSkills(playerBuilds, hero, playerID)
         local ability = hero:AddAbility(skill)
         -- table.insert(checkedAbilitiesDEV, skill)
     end
-    for indexSkill, skill in pairs(playerBuilds[playerID]["linkedSkills"]) do
+    for indexSkill, skill in pairs(playerBuilds[playerID]["LinkedSkills"]) do
         print(skill, "SetLinked")
         local ability = hero:AddAbility(skill)
         ability:SetLevel(1)

@@ -96,7 +96,8 @@ function setGameMode()
 		"xDuration": Number($.GetContextPanel().GetParent().FindChildTraverse("xDurationEntry").text),
 		"xAbilityCastRange": Number($.GetContextPanel().GetParent().FindChildTraverse("xAbilityCastRangeEntry").text),
 		"xSlow": Number($.GetContextPanel().GetParent().FindChildTraverse("xSlowEntry").text),
-		"xChance": Number($.GetContextPanel().GetParent().FindChildTraverse("xChanceEntry").text)
+		"xChance": Number($.GetContextPanel().GetParent().FindChildTraverse("xChanceEntry").text),
+        "xResistances": Number($.GetContextPanel().GetParent().FindChildTraverse("xResistancesEntry").text)
 	});
 }
 
