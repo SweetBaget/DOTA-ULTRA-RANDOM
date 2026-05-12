@@ -14,6 +14,7 @@ function Precache(context)
     PrecacheResource("model", "models/heroes/pangolier/pangolier_round.vmdl", context)
 
     PrecacheResource("particle_folder", "particles/base_attacks", context)
+    PrecacheResource("particle_folder", "particles/neutral_fx", context)
     PrecacheResource("model_folder", "models/props_gameplay", context)
 
     for heroName, heroInfo in pairs(npcHeroesKV) do

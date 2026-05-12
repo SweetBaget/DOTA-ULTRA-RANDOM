@@ -35,8 +35,13 @@ function SkillHandler:getAbiltiesInfo()
             local abilsHero = LoadKeyValues("scripts/npc/heroes/" .. heroName .. ".txt")
             for abilityName, abilityInfo in pairs(abilsHero) do
                 if abilityName ~= "Version" and not string.match(abilityName, "special_bonus") then
-                    abilityInfo["HeroName"] = heroName
-                    allAbilities[abilityName] = abilityInfo
+                    local IsInfoCollected = pcall(function()
+                        abilityInfo["HeroName"] = heroName
+                        allAbilities[abilityName] = abilityInfo
+                    end)
+                    if not IsInfoCollected then
+                        print("Не удалось собрать информацию о скилле", abilityName)
+                    end
                 end
             end
         end

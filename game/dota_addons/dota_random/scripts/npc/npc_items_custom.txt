@@ -1,6 +1,24 @@
 "DOTAAbilities"
 {	
 	"Version" "1"
+    "item_frozen_skadi_LVL2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName" 			"frozen_skadi"
+		"BaseClass" 					"item_lua"
+        "ScriptFile"                    "modifiers/ItemsUpgrades/frozen_skadi_LVL2.lua"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemQuality"					"artifact"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+	}
 	"item_frozen_skadi"
 	{
 		// General

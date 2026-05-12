@@ -13,14 +13,16 @@ local function SetupSpellProperties()
             local abilsHero = LoadKeyValues("scripts/npc/heroes/" .. heroName .. ".txt")
             for abilityName, abilityInfo in pairs(abilsHero) do
                 if abilityName ~= "Version" and not string.match(abilityName, "special_bonus") then
-                    if abilityInfo.AbilityBehavior then
-                        if string.match(abilityInfo.AbilityBehavior, 'DOTA_ABILITY_BEHAVIOR_CHANNELLED') then
-                            chanelledSpells[abilityName] = true
+                    pcall(function()
+                        if abilityInfo.AbilityBehavior then
+                            if string.match(abilityInfo.AbilityBehavior, 'DOTA_ABILITY_BEHAVIOR_CHANNELLED') then
+                                chanelledSpells[abilityName] = true
+                            end
+                            if string.match(abilityInfo.AbilityBehavior, 'DOTA_ABILITY_BEHAVIOR_UNIT_TARGET') then
+                                targetSpells[abilityName] = true
+                            end
                         end
-                        if string.match(abilityInfo.AbilityBehavior, 'DOTA_ABILITY_BEHAVIOR_UNIT_TARGET') then
-                            targetSpells[abilityName] = true
-                        end
-                    end
+                    end)
                 end
             end
         end
